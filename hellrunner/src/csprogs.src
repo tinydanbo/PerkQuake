@@ -1,0 +1,6 @@
+../csprogs.dat
+
+csqc/csqc_defs.qc // definitions
+csqc/csqc_constants.qc // constants
+csqc/csqc_builtins.qc // builtins
+csqc/main.qc // required functions
