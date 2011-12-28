@@ -31,6 +31,41 @@ float() crandom =
 
 /*
 ================
+W_QuickMelee
+================
+*/
+void() W_QuickMelee =
+{
+	local	vector	source;
+	local	vector	org;
+	local	vector	kickdir;
+
+	self.attack_finished = time + 0.6;
+	
+	makevectors (self.v_angle);
+	source = self.origin + '0 0 16';
+	traceline (source, source + v_forward*64, FALSE, self);
+	if (trace_fraction == 1.0)
+		return;
+	
+	org = trace_endpos - v_forward*4;
+
+	if (trace_ent.takedamage)
+	{
+		trace_ent.axhitme = 1;
+		SpawnBlood (org, '0 0 0', 20);
+		T_Damage (trace_ent, self, self, 10);
+		
+		kickdir = trace_ent.origin - source;
+		kickdir = normalize(kickdir);
+		trace_ent.velocity = trace_ent.velocity + kickdir*100 + '0 0 300';
+		
+	}
+
+}
+
+/*
+================
 W_FireAxe
 ================
 */
@@ -1240,6 +1275,8 @@ void() ImpulseCommands =
 		ServerflagsCommand ();
 	if (self.impulse == 12)
 		CycleWeaponReverseCommand ();
+	if (self.impulse == 13)
+		W_QuickMelee ();
 
 	if (self.impulse == 255)
 		QuadCheat ();
