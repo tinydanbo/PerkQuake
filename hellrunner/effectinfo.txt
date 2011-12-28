@@ -1,0 +1,1086 @@
+// I commented all lines I modified or added (for your understanding).   Hope you like it.  Seven
+// Special thanks to Jorix for his lovely explosions / smoke (included in this release)
+// Also special thanks to Jakub1  for all his wonderful new ideas
+
+
+effect TE_WIZSPIKE           // taken from Nexuiz (cloud of particles which expand rapidly and then slow to form a ball). Appears when impact on surfaces
+countabsolute 1
+type static
+color 0x00CD66 0x00CD66      // modified  by Seven      0x00CD66 0x00CD66  = slime green
+size 20 20
+alpha 128 128 128
+lightradius 200
+lightradiusfade 200
+lightcolor 0.4 0.9 0.9
+
+effect TE_WIZSPIKE           // taken from Nexuiz (cloud of particles which expand rapidly and then slow to form a ball). Appears when impact on surfaces
+count 100
+type alphastatic             //   modified  by Seven
+color 0x00CD66 0x00CD66      //   modified  by Seven      0x00CD66 0x00CD66  = slime green
+size 2 2
+alpha 32 32 64               //   modified  by Seven
+airfriction 2
+liquidfriction 2
+originjitter 16 16 16
+velocityjitter 32 32 32
+
+effect TE_WIZSPIKE           // added slime pit effect after impact (used blood decal to achieve it)
+countabsolute 11             // was   count 0.33
+type blood
+color 0xe500b1 0xe500b1      // added   color 0xe500b1 0xe500b1 = slime green (looks best with my particlefont.tga)
+tex 24 32
+size 20 20                   // was   size 8 8 
+alpha 256 256 64
+bounce -1
+airfriction 1
+liquidfriction 4
+velocityjitter 64 64 64
+velocitymultiplier 1
+
+effect TE_WIZSPIKE           // added a slime pit GLOW on surface after impact   (used mini-decal to achieve it)
+countabsolute 1
+type decal
+tex 8 16
+size 0.2 0.2
+alpha 256 256 0
+originjitter 6 6 6
+lightradius 60               // added for decal glowing effect  (thanks to jakub1)
+lightradiusfade 6            // added for decal glowing effect  (thanks to jakub1)
+lightshadow 0                // added for decal glowing effect  (thanks to jakub1)
+lightcolor 0.0 0.8 0.2       // added for decal glowing effect  (thanks to jakub1)    0.0 0.8 0.2  = slime green
+
+// effect TE_WIZSPIKE        // original as follows
+// count 30                  // original
+// type alphastatic          // original
+// color 0x372b17 0x73571f   // original
+// alpha 51 256 512          // original
+// originjitter 4 4 4        // original
+// velocityjitter 16 16 16   // original
+
+
+effect TE_KNIGHTSPIKE        // added a fire GLOW on surface after impact   (around impact-decal)
+countabsolute 1
+type decal
+tex 8 16
+size 5.5 5.5
+alpha 256 256 0
+originjitter 6 6 6
+lightradius 55               // added for decal glowing effect  (thanks to jakub1)
+lightradiusfade 7            // added for decal glowing effect  (thanks to jakub1)
+lightshadow 0                // added for decal glowing effect  (thanks to jakub1)
+lightcolor 1 0.15 0          // added for decal glowing effect  (thanks to jakub1)    1 0.15 0  = orange/red
+
+effect TE_KNIGHTSPIKE        // added fire on impact - static (no gravity settings)   Thanks to Jakub1 !
+count 40
+type smoke
+color 0x801010 0xFFA020
+size 2 5 
+alpha 0 100 65
+lightcolor 1 0.627 0.1254
+airfriction 2
+liquidfriction 2
+originjitter 0 0 0 
+velocityjitter 15 15 15
+tex 0 9
+
+effect TE_KNIGHTSPIKE        // added fire on impact - fire slowly elevating up      Thanks to Jakub1 !
+count 40
+type smoke
+color 0x801010 0xB80C00
+size 2 5 
+alpha 0 90 50
+gravity -0.03
+airfriction 3
+liquidfriction 2
+originjitter 2 2 5    
+velocityjitter 2 2 8   
+velocityoffset 0 0 15
+tex 0 9
+
+effect TE_KNIGHTSPIKE        // added  grey smoke on impact            Thanks to Jakub1 !
+notunderwater
+type alphastatic
+count 4   
+tex 0 8
+size 3 5
+alpha 250 256 100            // was   alpha 250 256 120
+color 0x303030 0x050505
+sizeincrease 2               // added
+gravity -0.04
+originjitter 2 2 2
+velocityjitter 8 8 10        // was   velocityjitter 2 2 8
+originoffset 0 0 4
+
+// effect TE_KNIGHTSPIKE       // original as follows
+// count 20                    // original
+// type alphastatic            // original
+// color 0x5f0700 0xcf632b     // original
+// alpha 51 256 512            // original
+// originjitter 4 4 4          // original
+// velocityjitter 16 16 16     // original
+
+effect TE_SPIKE
+countabsolute 1
+type decal
+tex 8 16
+size 2 2
+alpha 256 256 0
+originjitter 6 6 6
+
+effect TE_SPIKE
+count 4
+type smoke
+tex 0 8
+color 0x101010 0x202020
+size 3 3
+alpha 0 256 512
+originjitter 2 2 2
+velocityjitter 8 8 8
+
+effect TE_SPIKE           //  original sparks
+count 10                  //  reduced from 15 to 10  (effect was too strong when bouncing sparks are used in addition, so I reduced it !)
+type spark
+color 0x8f3933 0xfff31b   // was 0x8f4333 (rot braun)   0xfff31b (gelb) 
+size 0.4 0.4
+alpha 0 256 768
+gravity 1
+bounce -1
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+
+effect TE_SPIKE          // bouncing sparks  from Nexuiz
+count 1                  // reduced from 20 to 1   (effect was too strong, so I reduced it !)
+type spark
+color 0x8f3933 0xfff31b  // was 0x8f4333 (rot braun)   0xfff31b (gelb) 
+size 0.4 0.4
+alpha 0 160 128          // changed from 256 256  (to thin the sparks and lengthen the bouncing effect)
+gravity 1
+bounce 1.5
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+
+effect TE_SPIKE          // debris of the wall  ONLY  underwater (thanks to jakub1)
+underwater
+type alphastatic
+count 2
+liquidfriction 6
+sizeincrease -0.15
+velocityoffset 0 0 0
+velocityjitter 80 40 80
+color 0x000000 0x111111
+size 0.6 1.8
+gravity 0.04
+bounce -1
+tex 0 8
+alpha 2048 2048 256
+
+effect TE_SPIKEQUAD
+count 15
+type spark
+color 0x8f4333 0xfff31b
+size 0.4 0.4
+alpha 0 256 768
+gravity 1
+bounce -1
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+
+effect TE_SPIKEQUAD
+count 4
+type smoke
+tex 0 8
+color 0x101010 0x202020
+size 3 3
+alpha 0 256 512
+originjitter 2 2 2
+velocityjitter 8 8 8
+
+effect TE_SPIKEQUAD
+countabsolute 1
+type decal
+tex 8 16
+size 3 3
+alpha 256 256 0
+originjitter 6 6 6
+lightradius 100
+lightradiusfade 500
+lightcolor 0.15 0.15 1.5
+
+effect TE_SUPERSPIKE       //  original sparks
+count 10                   //  reduced from 30 to 10   (effect was too strong when bouncing sparks are used in addition, so I reduced it !)
+type spark
+color 0x8f3933 0xfff31b    // was 0x8f4333 (rot braun)   0xfff31b (gelb) 
+size 0.4 0.4
+alpha 0 256 768
+gravity 1
+bounce -1
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+
+effect TE_SUPERSPIKE       // bouncing sparks  from Nexuiz
+count 1                    // reduced from 20 to 1   (effect was too strong, so I reduced it !)
+type spark
+color 0x8f3933 0xfff31b    // was 0x8f4333 (rot braun)   0xfff31b (gelb) 
+size 0.4 0.4
+alpha 0 160 128            // changed from 256 256   (to thin the sparks and lengthen the bouncing effect)
+gravity 1
+bounce 1.5
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+
+effect TE_SUPERSPIKE       //  original smoke
+count 4                    //  reduced from 8 to 4   (smoke quantity was too much)
+type smoke
+tex 0 8
+color 0x101010 0x202020
+size 3 3
+alpha 0 256 512
+originjitter 2 2 2
+velocityjitter 8 8 8
+
+effect TE_SUPERSPIKE
+countabsolute 1
+type decal
+tex 8 16
+size 2 2
+alpha 256 256 0
+originjitter 6 6 6
+lightradius 20             // added for decal glowing effect  (thanks to jakub1)
+lightradiusfade 5          // added for decal glowing effect  (thanks to jakub1)
+lightshadow 0              // added for decal glowing effect  (thanks to jakub1)
+lightcolor 1 0.53 0.16     // added for decal glowing effect  (thanks to jakub1)
+
+effect TE_SUPERSPIKE       // debris of the wall  ONLY  underwater (thanks to jakub1)
+underwater
+type alphastatic
+count 2
+liquidfriction 6
+sizeincrease -0.15
+velocityoffset 0 0 0
+velocityjitter 80 40 80
+color 0x000000 0x111111
+size 0.6 1.8
+gravity 0.04
+bounce -1
+tex 0 8
+alpha 2048 2048 256
+
+effect TE_SUPERSPIKEQUAD
+count 30
+type spark
+color 0x8f4333 0xfff31b
+size 0.4 0.4
+alpha 0 256 768
+gravity 1
+bounce -1
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+
+effect TE_SUPERSPIKEQUAD
+count 8
+type smoke
+tex 0 8
+color 0x101010 0x202020
+size 3 3
+alpha 0 256 512
+originjitter 2 2 2
+velocityjitter 8 8 8
+
+effect TE_SUPERSPIKEQUAD
+countabsolute 1
+type decal
+tex 8 16
+size 3 3
+alpha 256 256 0
+originjitter 6 6 6
+lightradius 100
+lightradiusfade 500
+lightcolor 0.15 0.15 1.5
+
+effect TE_GUNSHOT                //  original sparks
+count 15
+type spark
+color 0x8f3933 0xfff31b          // was 0x8f4333 (rot braun)   0xfff31b (gelb) 
+size 0.4 0.4
+alpha 0 256 768
+gravity 1
+bounce -1
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+
+effect TE_GUNSHOT                // bouncing sparks  from Nexuiz
+count 1                          // reduced from 10 to 1   (effect was too strong when bouncing sparks are used in addition, so I reduced it !)
+type spark
+color 0x8f3933 0xfff31b          // was 0x8f4333 (rot braun)   0xfff31b (gelb) 
+size 0.4 0.4
+alpha 0 160 128                  //  increased from 64 64  (bouncing sparks were too thin)
+gravity 1
+bounce 1.5
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+
+effect TE_GUNSHOT
+count 4
+type smoke
+tex 0 8
+color 0x101010 0x202020
+size 3 3
+alpha 0 256 512
+originjitter 2 2 2
+velocityjitter 8 8 8
+
+effect TE_GUNSHOT
+countabsolute 1
+type decal
+tex 8 16
+size 3 3
+alpha 256 256 0
+originjitter 6 6 6
+
+effect TE_GUNSHOT            // debris of the wall  ONLY  underwater (thanks to jakub1)
+underwater
+type alphastatic
+count 2
+sizeincrease -0.15
+liquidfriction 6
+velocityoffset 0 0 0
+velocityjitter 80 40 80
+color 0x000000 0x111111
+size 0.6 1.8
+gravity 0.04
+bounce -1
+tex 0 8
+alpha 2048 2048 256
+
+effect TE_GUNSHOTQUAD
+count 15
+type spark
+color 0x8f4333 0xfff31b
+size 0.4 0.4
+alpha 0 256 768
+gravity 1
+bounce -1
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+
+effect TE_GUNSHOTQUAD
+count 4
+type smoke
+tex 0 8
+color 0x101010 0x202020
+size 3 3
+alpha 0 256 512
+originjitter 2 2 2
+velocityjitter 8 8 8
+
+effect TE_GUNSHOTQUAD
+countabsolute 1
+type decal
+tex 8 16
+size 3 3
+alpha 256 256 0
+originjitter 6 6 6
+lightradius 100
+lightradiusfade 500
+lightcolor 0.15 0.15 1.5
+
+effect TE_EXPLOSION
+underwater
+count 128
+type bubble
+tex 62 62
+color 0x404040 0x808080
+size 2 2
+alpha 128 256 64
+gravity -0.125
+bounce 1.5
+liquidfriction 0.25
+originjitter 16 16 16
+velocityjitter 96 96 96
+
+effect TE_EXPLOSION
+notunderwater
+count 128
+type spark
+color 0x903010 0xFFD030
+size 1 1
+alpha 0 256 512
+gravity 1
+airfriction 0.2
+liquidfriction 0.8
+velocityoffset 0 0 80
+velocityjitter 256 256 256
+
+effect TE_EXPLOSION            //  this is Jorix new red explosion smoke, which is visible directly after the explosion for a short time
+notunderwater
+count 192
+type smoke
+color 0x901000 0xFF3010
+size 10 10
+alpha 32 16 64
+bounce -1
+tex 0 8
+airfriction 0.2                // beeinflusst das Auflöseverhalten des Rauchs
+liquidfriction 0.8
+lighttime 0
+velocityoffset 0 0 0
+velocityjitter 256 256 256     //  wie schnell der Rauch sich verteilt
+
+effect TE_EXPLOSION            //  this is Jorix new white explosion smoke, which is visible after the explosion and slowly disappears
+notunderwater
+count 96
+type smoke
+color 0x202020 0x404040
+tex 0 8
+size 12 12
+sizeincrease 1
+alpha 0 32 2                   //  war ursprünglich 0 32 1   3.Wert: wie lange der Rauch sich verteilt (kleinerer Wert= langsamer !!)
+bounce -1
+lighttime 0
+airfriction 0.2                //  beeinflusst das Auflöseverhalten des Rauchs
+liquidfriction 1
+velocityjitter 64 64 64        //  wie schnell der Rauch sich verteilt
+
+effect TE_EXPLOSION
+countabsolute 1
+type decal
+tex 8 16
+size 48 48
+alpha 256 256 0
+originjitter 40 40 40
+
+effect TE_EXPLOSION
+lightradius 350
+lightradiusfade 700
+lightcolor 4 2 0.5
+
+effect TE_EXPLOSIONQUAD
+underwater
+count 128
+type bubble
+tex 62 62
+color 0x404040 0x808080
+size 2 2
+alpha 128 256 64
+gravity -0.125
+bounce 1.5
+liquidfriction 0.25
+originjitter 16 16 16
+velocityjitter 96 96 96
+
+effect TE_EXPLOSIONQUAD
+notunderwater
+count 128
+type spark
+color 0x903010 0xFFD030
+size 1 1
+alpha 0 256 512
+gravity 1
+airfriction 0.2
+liquidfriction 0.8
+velocityoffset 0 0 80
+velocityjitter 256 256 256
+
+effect TE_EXPLOSIONQUAD
+notunderwater
+count 32
+type smoke
+color 0x202020 0x404040
+tex 0 8
+size 12 12
+alpha 32 32 64
+velocityjitter 48 48 48
+
+effect TE_EXPLOSIONQUAD
+countabsolute 1
+type decal
+tex 8 16
+size 48 48
+alpha 256 256 0
+originjitter 40 40 40
+
+effect TE_EXPLOSIONQUAD
+lightradius 350
+lightradiusfade 700
+lightcolor 4 2 8
+
+effect TE_TAREXPLOSION
+underwater
+count 128
+type bubble
+tex 62 62
+color 0x404040 0x808080
+size 2 2
+alpha 128 256 64
+gravity -0.125
+bounce 1.5
+liquidfriction 0.25
+originjitter 16 16 16
+velocityjitter 96 96 96
+
+effect TE_TAREXPLOSION
+notunderwater
+count 128
+type spark
+color 0x903010 0xFFD030
+size 1 1
+alpha 0 256 512
+gravity 1
+airfriction 0.2
+liquidfriction 0.8
+velocityoffset 0 0 80
+velocityjitter 256 256 256
+
+effect TE_TAREXPLOSION         //  this is Jorix new red explosion smoke, which is visible directly after the explosion for a short time
+notunderwater
+count 192
+type smoke
+color 0x901000 0xFF3010
+size 10 10
+alpha 32 16 64
+bounce -1
+tex 0 8
+airfriction 0.2                // beeinflusst das Auflöseverhalten des Rauchs
+liquidfriction 0.8
+lighttime 0
+velocityoffset 0 0 0
+velocityjitter 256 256 256     //  wie schnell der Rauch sich verteilt
+
+effect TE_TAREXPLOSION         //  this is Jorix new white explosion smoke, which is visible after the explosion and slowly disappears
+notunderwater
+count 96
+type smoke
+color 0x000020 0x002040
+tex 0 8
+size 12 12
+sizeincrease 1
+alpha 0 32 2                   //  war ursprünglich 0 32 1   3.Wert: wie lange der Rauch sich verteilt (kleinerer Wert= langsamer !!)
+bounce -1
+lighttime 0
+airfriction 0.2                //  beeinflusst das Auflöseverhalten des Rauchs
+liquidfriction 1
+velocityjitter 64 64 64        //  wie schnell der Rauch sich verteilt
+
+effect TE_TAREXPLOSION
+countabsolute 1
+type decal
+tex 8 16
+size 48 48
+alpha 256 256 0
+originjitter 40 40 40
+
+effect TE_TAREXPLOSION
+lightradius 600
+lightradiusfade 1200
+lightcolor 1.6 0.8 2
+
+effect TE_BLOOD
+count 0.333
+type blood
+tex 24 32
+size 8 8
+alpha 256 256 64
+bounce -1
+airfriction 1
+liquidfriction 4
+velocityjitter 64 64 64
+velocitymultiplier 1
+
+effect TE_SPARK
+count 1
+type spark
+color 0x8f4333 0xfff31b
+size 0.4 0.4
+alpha 0 256 768
+gravity 1
+bounce -1
+velocityoffset 0 0 80
+velocityjitter 64 64 64
+velocitymultiplier 1
+
+effect TE_PLASMABURN
+countabsolute 1
+type decal
+tex 8 16
+size 6 6
+alpha 256 256 0
+originjitter 6 6 6
+lightradius 200
+lightradiusfade 1000
+lightcolor 1 1 1
+
+effect TE_SMALLFLASH
+lightradius 200
+lightradiusfade 1000
+lightcolor 2 2 2
+
+effect TE_FLAMEJET
+count 1
+type smoke
+color 0x6f0f00 0xe3974f
+size 4 4
+alpha 64 128 384
+gravity -1
+bounce 1.1
+airfriction 1
+liquidfriction 4
+velocityjitter 128 128 128
+velocitymultiplier 1
+
+effect TE_LAVASPLASH             //  when chton awakes
+count 64
+type alphastatic
+color 0x6f0f00 0xe3974f
+size 12 12
+alpha 256 256 256
+gravity 0.05
+originoffset 0 0 32
+originjitter 128 128 32
+velocityoffset 0 0 256
+velocityjitter 128 128 0
+
+effect TE_LAVASPLASH             // added   spark effect while chton's waking up       Thanks to Jakub1 !
+count 512
+type spark  
+color 0x6f0f00 0xe3974f
+size 1 2
+alpha 256 256 100
+gravity 0.05
+airfriction 0.4 
+originoffset 0 0 5  
+originjitter 128 128 60
+gravity 0.1
+bounce -1
+stretchfactor 2
+velocityjitter 200 200 300
+
+effect TE_LAVASPLASH             // added  smoke/spark effect while chton's waking up      Thanks to Jakub1 !
+count 200
+type smoke 
+color 0xEB1F00 0x6B0E00
+size 8 10
+tex 9 17
+alpha 100 256 50
+gravity 0.05
+airfriction 0.8 
+originoffset 0 0 0  
+originjitter 128 128 60
+gravity 0.2
+velocityoffset 0 0 64
+velocityjitter 100 100 100
+
+effect TE_TELEPORT                   // teleport "blue base"  made by Jakub1
+count 80
+type spark
+blend add
+color 0x66B3FF 0x0A47FF
+size 1 10
+bounce -1
+alpha 50 150 70
+airfriction 2
+liquidfriction 2
+stretchfactor -2
+originoffset 0 0 15
+originjitter 16 16 30
+velocityjitter 50 50 50
+lightradius 200
+lightradiusfade 65
+lightshadow 0
+lightcolor 0 0 1
+
+effect TE_TELEPORT                   // teleport "blue base"  made by Jakub1
+count 50
+type spark
+bounce -1
+color 0xEB7500 0xEB0000
+size 0.5 1
+alpha 16 128 40
+airfriction 3
+sizeincrease 1
+stretchfactor -8
+originoffset 0 0 20
+originjitter 10 10 20
+velocityjitter 80 80 80  
+
+effect TE_TELEPORT                   // teleport "blue base"  made by Jakub1
+count 50
+type spark
+bounce -1
+color 0xEB7500 0x0A47FF
+size 0.2 0.8
+alpha 16 128 50
+stretchfactor 8
+originoffset 0 0 20
+originjitter 0 0 10
+velocityjitter 60 60 60 
+
+effect TE_TELEPORT                   // teleport "blue base"  made by Jakub1
+count 20
+type smoke
+bounce -1
+color 0xFFFFCC 0xD6D6FF
+tex 0 8
+size 5 10
+alpha 0 100 65
+sizeincrease -6
+originoffset 0 0 20
+originjitter 5 5 15 
+velocityjitter 5 5 5
+
+// effect TE_TELEPORT               // original values as follows
+// count 112
+// type static
+// color 0xA0A0A0 0xFFFFFF
+// size 10 10
+// alpha 64 128 256
+// airfriction 1
+// liquidfriction 4
+// originoffset 0 0 28
+// originjitter 16 16 28
+// velocityjitter 0 0 256
+
+effect TE_TEI_G3
+countabsolute 1
+type beam
+color 0xFFFFFF 0xFFFFFF
+size 8 8
+alpha 256 256 256
+
+effect TE_TEI_SMOKE
+count 0.333
+type smoke
+color 0x202020 0x404040
+tex 0 8
+size 5 5
+alpha 256 256 512
+originjitter 1.5 1.5 1.5
+velocityjitter 6 6 6
+velocitymultiplier 1
+
+effect TE_TEI_BIGEXPLOSION
+underwater
+count 256
+type bubble
+tex 62 62
+color 0x404040 0x808080
+size 2 2
+alpha 128 256 48
+gravity -0.125
+bounce 1.5
+liquidfriction 0.25
+originjitter 24 24 24
+velocityjitter 144 144 144
+
+effect TE_TEI_BIGEXPLOSION
+notunderwater
+count 256
+type spark
+color 0x903010 0xFFD030
+size 1 1
+alpha 0 256 384
+gravity 1
+airfriction 0.2
+liquidfriction 0.8
+velocityoffset 0 0 120
+velocityjitter 384 384 384
+
+effect TE_TEI_BIGEXPLOSION
+notunderwater
+count 64
+type smoke
+color 0x202020 0x404040
+tex 0 8
+size 12 12
+alpha 32 32 48
+velocityjitter 72 72 72
+
+effect TE_TEI_BIGEXPLOSION
+countabsolute 1
+type decal
+tex 8 16
+size 72 72
+alpha 256 256 0
+originjitter 40 40 40
+
+effect TE_TEI_BIGEXPLOSION
+lightradius 500
+lightradiusfade 500
+lightcolor 4 2 0.5
+
+effect TE_TEI_PLASMAHIT
+count 1
+type spark
+color 0x2030FF 0x80C0FF
+size 2 2
+alpha 0 256 512
+airfriction 0.2
+liquidfriction 0.8
+velocityoffset 0 0 120
+velocityjitter 465 465 465
+
+effect TE_TEI_PLASMAHIT
+countabsolute 1
+type decal
+tex 8 16
+size 16 16
+originjitter 6 6 6
+
+effect TE_TEI_PLASMAHIT
+count 0.25
+type smoke
+color 0x202020 0x404040
+tex 0 8
+size 24 24
+alpha 32 32 64
+originjitter 20 20 20
+velocityjitter 32 32 32
+
+effect TE_TEI_PLASMAHIT
+lightradius 500
+lightradiusfade 2000
+lightcolor 0.6 1.2 2
+
+effect TR_ROCKET             //  modified values ! 
+trailspacing 3
+type smoke
+color 0x801010 0xFFA020      // was 0x303030 0x606060 = white   ;    0x801010 0xFFA020 = orange/red
+tex 0 8                      // Dichte des Schweifs
+size 3 3                     // Dimension des Schweifs (Durchmesser)
+alpha 16 16 16               // war 32 32 32   1.+2.Wert: größe der Rauchblasen 3.Wert: Länge des Schweifs (je kleiner Wert, desto länger)
+velocityjitter 20 20 20      // added !!  allmäliches Auflösen des Schweifs (Fläche des verblassenden Rauchs)
+lightradius 200
+lighttime 0
+lightcolor 3.0 1.5 0.5
+
+// effect TR_ROCKET           //  original values as follows !
+// trailspacing 3
+// type smoke
+// color 0x303030 0x606060    // 0x303030 0x606060 = white
+// tex 0 8                    // Dichte des Schweifs
+// size 3 3                   // Dimension des Schweifs (Durchmesser)
+// alpha 32 32 32             // 1.+2.Wert: größe der Rauchblasen 3.Wert: Länge des Schweifs (je kleiner Wert, desto länger)
+// lightradius 200
+// lighttime 0
+// lightcolor 3.0 1.5 0.5
+
+effect TR_ROCKET
+notunderwater
+trailspacing 3
+type static
+color 0x801010 0xFFA020
+tex 0 8
+size 3 3
+alpha 144 144 700
+velocityjitter 20 20 20
+velocitymultiplier -0.25
+
+effect TR_ROCKET
+underwater
+trailspacing 3
+type bubble
+tex 62 62
+color 0x404040 0x808080
+size 2 2
+alpha 64 256 64
+gravity -0.25
+bounce 1.5
+liquidfriction 0.25
+velocityjitter 16 16 16
+
+effect TR_ROCKET                //rocket trail - gray smoke   (thanks to jakub1)
+notunderwater
+trailspacing 4
+type alphastatic
+color 0x303030 0x000000
+tex 63 8                        // was 0 8
+size 0.01 0.04
+bounce 1
+sizeincrease 8
+alpha 16 80 50                  // was 20 128 50
+originjitter 2 2 2
+velocityjitter 20 20 20
+gravity -0.06
+
+effect TR_GRENADE                //  modified values !! 
+notunderwater
+trailspacing 4                   //  je größer der Wert, desto dünner der Schweif
+type alphastatic
+color 0x801010 0xFFA020          //  0x801010 0xFFA020 = orange/red
+tex 320 8                        //  Dichte des Schweifs
+size 5 1                         //  Dimension des Schweifs (Durchmesser)
+alpha 16 16 12                   // 1.+2.Wert: größe der Rauchblasen 3.Wert: Länge des Schweifs (je kleiner Wert, desto länger)
+velocityjitter 25 25 25          // added  Auflösen des Schweifs (Fläche des verblassenden Rauchs)  Alternativ: 30 30 30
+velocitymultiplier -0.25         // added  Schnelligkeit des Schweifs  
+
+// effect TR_GRENADE           // original values as follows !!
+// notunderwater               // original
+// trailspacing 3              // original
+// type smoke                  // original
+// color 0x303030 0x606060     // original    0x303030 0x606060 = white
+// tex 0 8                     // original
+// size 3 3                    // original
+// alpha 16 16 24              // original
+
+effect TR_GRENADE
+underwater
+trailspacing 6
+type bubble
+tex 62 62
+color 0x404040 0x808080
+size 2 2
+alpha 64 256 64
+gravity -0.25
+bounce 1.5
+liquidfriction 0.25
+velocityjitter 16 16 16
+
+effect TR_BLOOD                     // for gib trail
+trailspacing 16
+type blood
+color 0xFFFFFF 0xFFFFFF
+tex 24 32
+size 8 8
+alpha 384 384 192
+bounce -1
+airfriction 1
+liquidfriction 4
+velocityjitter 64 64 64
+velocitymultiplier 0.5
+
+effect TR_SLIGHTBLOOD              // for zombie "gib-throw" trail
+trailspacing 32
+type blood
+color 0xFFFFFF 0xFFFFFF
+tex 24 32
+size 8 8
+alpha 384 384 192
+bounce -1
+airfriction 1
+liquidfriction 4
+velocityjitter 64 64 64
+velocitymultiplier 0.5
+
+effect TR_WIZSPIKE              //  modified values for Wizard Magic Attach Trail 
+trailspacing 4                  //  je größer der Wert, desto dünner der Schweif
+type alphastatic
+color 0x00CD66 0x00CD66         //  0x00CD66 0x00CD66 = slime green
+tex 320 8                       //  Dichte des Schweifs
+size 5 1                        //  Dimension des Schweifs (Durchmesser)
+alpha 16 16 12                  // 1.+2.Wert: größe der Rauchblasen 3.Wert: Länge des Schweifs (je kleiner Wert, desto länger)
+velocityjitter 70 70 70         // Auflösen des Schweifs (Fläche des verblassenden Rauchs)  Alternativ: 30 30 30
+lightradius 190                 // added   Helligkeit des Glühens
+lighttime 0                     // added
+lightcolor 0 0.8 0.4            // added   slime green light
+
+// effect TR_WIZSPIKE           //  original values as follows !!
+// trailspacing 3               //  original
+// type alphastatic             //  original
+// color 0x372b17 0x73571f      //  original
+// size 2 2                     //  original
+// alpha 64 64 192              //  original
+
+effect TR_KNIGHTSPIKE         // modified values for Hellknight Magic Attack trail
+trailspacing 3                // je größer der Wert, desto dünner der Schweif
+type alphastatic
+color 0x801010 0xFFA020       // was 0x5f0700 0xcf632b = red    0x801010 0xFFA020 = orange/red
+tex 320 8                     // added   Dichte des Schweifs
+size 5 1                      // war 2 2   Dimension des Schweifs (Durchmesser)
+alpha 20 20 12                // war 64 64 192  1.+2.Wert: größe der Rauchblasen 3.Wert: Länge des Schweifs (je kleiner Wert, desto länge
+velocityjitter 25 25 25       // added  Auflösen des Schweifs (Fläche des verblassenden Rauchs) 
+velocitymultiplier 0.5        // added  Schnelligkeit des Schweifs  
+lightradius 110               // added  Helligkeit des Glühens
+lighttime 0                   // added
+lightcolor 1 0.3 0            // added  orange/red light
+
+// effect TR_KNIGHTSPIKE         //  original values as follows !!
+// trailspacing 3                //   original
+// type alphastatic              //   original
+// color 0x5f0700 0xcf632b       //   original   0x5f0700 0xcf632b = rot
+// size 2 2                      //   original
+// alpha 64 64 192               //   original
+
+effect TR_VORESPIKE         // modified values !!
+trailspacing 3              // je größer der Wert, desto dünner der Schweif
+type alphastatic
+color 0x502030 0x502030
+tex 320 8                   // added   Dichte des Schweifs
+size 5 5                    // war  3 3   Dimension des Schweifs (Durchmesser)
+alpha 16 16 8               // war  64 64 96    1.+2.Wert: größe der Rauchblasen 3.Wert: Länge des Schweifs (je kleiner Wert, desto länge
+velocityjitter 40 40 40     // added   Auflösen des Schweifs (Fläche des verblassenden Rauchs) 
+lightradius 200             // Helligkeit des Glühens
+lighttime 0
+lightcolor 1.2 0.5 1.0
+
+effect TR_VORESPIKE         // added   vore trail - sparks             Thanks to Jakub1 !
+trailspacing 8              // was trailspacing 2
+type spark
+tex 0 9
+color 0xD5BAE3 0x283880
+size 0.5 1
+alpha 20 200 400
+airfriction 2
+stretchfactor -1
+originjitter 4 4 4
+velocityjitter 120 120 120
+velocitymultiplier -0.1
+
+// effect TR_VORESPIKE       //   original values as follows !!  
+// trailspacing 3            //   original
+// type alphastatic          //   original
+// color 0x502030 0x502030   //   original    0x502030 0x502030 = purple
+// size 3 3                  //   original
+// alpha 64 64 96            //   original
+// lightradius 200           //   original
+// lighttime 0               //   original
+// lightcolor 1.2 0.5 1.0    //   original
+
+effect TR_NEHAHRASMOKE
+trailspacing 7
+type alphastatic
+color 0x303030 0x606060
+tex 0 8
+size 7 7
+alpha 64 64 320
+velocityoffset 0 0 8
+velocityjitter 4 4 8
+
+effect TR_NEXUIZPLASMA
+trailspacing 4
+type static
+color 0x283880 0x283880
+size 4 4
+alpha 256 256 1024
+velocityjitter 16 16 16
+lightradius 200
+lighttime 0
+lightcolor 0.75 1.5 3.0
+velocitymultiplier -0.1
+
+effect EF_FLAME
+count 300
+type smoke
+color 0x6f0f00 0xe3974f
+size 4 4
+alpha 64 128 384
+gravity -1
+airfriction 1
+liquidfriction 4
+velocityjitter 128 128 128
+lightradius 200
+lighttime 0
+lightcolor 2 1.5 0.5
+
+effect EF_STARDUST
+count 200
+type static
+color 0x903010 0xFFD030
+size 1.5 1.5
+alpha 64 128 128
+gravity 1
+airfriction 0.2
+liquidfriction 0.8
+originjitter 16 16 16
+velocityjitter 128 128 128
+lightradius 200
+lighttime 0
+lightcolor 1 0.7 0.3
