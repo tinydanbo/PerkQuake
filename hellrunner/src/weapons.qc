@@ -34,13 +34,21 @@ float() crandom =
 W_QuickMelee
 ================
 */
+void() player_kick;
 void() W_QuickMelee =
 {
 	local	vector	source;
 	local	vector	org;
 	local	vector	kickdir;
 
+	self.punchangle = self.punchangle + '-5 2 0';
+	self.weaponmodel = "progs/v_leg.mdl";
+	
 	self.attack_finished = time + 0.6;
+	
+	player_kick();
+	
+	sound (self, CHAN_VOICE, "player/pain2.wav", 1, ATTN_NORM);
 	
 	makevectors (self.v_angle);
 	source = self.origin + '0 0 16';
@@ -58,7 +66,8 @@ void() W_QuickMelee =
 		
 		kickdir = trace_ent.origin - source;
 		kickdir = normalize(kickdir);
-		trace_ent.velocity = trace_ent.velocity + kickdir*100 + '0 0 300';
+		trace_ent.origin = trace_ent.origin + '0 0 10';
+		trace_ent.velocity = trace_ent.velocity + kickdir*170 + '0 0 240';
 		
 	}
 

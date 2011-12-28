@@ -73,6 +73,8 @@ $frame shotatt1 shotatt2 shotatt3 shotatt4 shotatt5 shotatt6
 
 $frame axatt1 axatt2 axatt3 axatt4 axatt5 axatt6
 
+$frame kick1 kick2 kick3 kick4 kick5
+
 $frame axattb1 axattb2 axattb3 axattb4 axattb5 axattb6
 
 $frame axattc1 axattc2 axattc3 axattc4 axattc5 axattc6
@@ -237,6 +239,12 @@ void() player_rocket4   =[$rockatt4, player_rocket5  ] {self.weaponframe=4;};
 void() player_rocket5   =[$rockatt5, player_rocket6  ] {self.weaponframe=5;};
 void() player_rocket6   =[$rockatt6, player_run  ] {self.weaponframe=6;};
 void(float num_bubbles) DeathBubbles;
+
+void()   player_kick =   [$kick1, player_kick1    ] {self.weaponframe=1; };//i am using the axe frames of the player to test, use your custom frames :)
+void()   player_kick1 =   [$kick2, player_kick2    ] {self.weaponframe=2;};
+void()   player_kick2 =   [$kick3, player_kick3    ] {self.weaponframe=3;};//here you need to call your custom attack, i am using fireaxe to test the code :)
+void()   player_kick3=   [$kick4, player_kick4   ] {self.weaponframe=4;};
+void()	 player_kick4 =	 [$kick5, player_run	] {self.weaponframe=5; W_SetCurrentAmmo(); };
 
 void() PainSound =
 {
