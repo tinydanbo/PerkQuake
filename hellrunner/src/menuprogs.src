@@ -1,0 +1,6 @@
+../menu.dat
+
+menuqc/msys.qh
+menuqc/mbuiltin.qh
+menuqc/mdraw.qc
+menuqc/menu.qc

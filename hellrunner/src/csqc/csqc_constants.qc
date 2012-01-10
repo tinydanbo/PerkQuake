@@ -49,6 +49,30 @@ const float STAT_CELLS		= 9;
 const float STAT_ACTIVEWEAPON	= 10;
 const float STAT_ITEMS		= 15;
 
+const float IT_AXE = 4096;
+const float IT_SHOTGUN = 1;
+const float IT_SUPER_SHOTGUN = 2;
+const float IT_NAILGUN = 4;
+const float IT_SUPER_NAILGUN = 8;
+const float IT_GRENADE_LAUNCHER = 16;
+const float IT_ROCKET_LAUNCHER = 32;
+const float IT_LIGHTNING = 64;
+const float IT_EXTRA_WEAPON = 128;
+const float IT_SHELLS = 256;
+const float IT_NAILS = 512;
+const float IT_ROCKETS = 1024;
+const float IT_CELLS = 2048;
+const float IT_ARMOR1 = 8192;
+const float IT_ARMOR2 = 16384;
+const float IT_ARMOR3 = 32768;
+const float IT_SUPERHEALTH = 65536;
+const float IT_KEY1 = 131072;
+const float IT_KEY2 = 262144;
+const float IT_INVISIBILITY = 524288;
+const float IT_INVULNERABILITY = 1048576;
+const float IT_SUIT = 2097152;
+const float IT_QUAD = 4194304;
+
 const float true	= 1;
 const float false	= 0;
 
