@@ -108,51 +108,6 @@ void DrawBar (vector topleft, float width, float height, float full, vector bgco
 	DrawHollowBar(topleft, 100, 10, '0 0 0');
 }
 
-void DrawAmmo()
-{
-	local float ammo;
-	local string ammostr;
-	
-	ammo = getstati(STAT_AMMO);
-	
-	if (ammo > 0) {
-		drawpic ('585 380 0', "gfx/sb_shells", '16 16 0', '1 1 1', 1.0, 0);
-		
-		ammostr = ftos(ammo);
-		drawstring('605 380 0', "2", '12 12 0', '1 1 1', 1.0, 0);
-		drawstring('617 388 0', ammostr, '8 8 0', '1 1 1', 1.0, 0);
-	}
-}
-
-void DrawWeaponName()
-{
-	local float weapon;
-	local string weaponstr;
-	
-	weapon = getstati(STAT_ACTIVEWEAPON);
-	
-	weaponstr = "HELP";
-	
-	if (weapon == IT_SHOTGUN)
-		weaponstr = "         Shotgun";
-	if (weapon == IT_AXE)
-		weaponstr = "             Axe";
-	if (weapon == IT_SUPER_SHOTGUN)
-		weaponstr = "   Super Shotgun";
-	if (weapon == IT_NAILGUN)
-		weaponstr = "         Nailgun";
-	if (weapon == IT_SUPER_NAILGUN)
-		weaponstr = "      Perforator";
-	if (weapon == IT_GRENADE_LAUNCHER)
-		weaponstr = "Grenade Launcher";
-	if (weapon == IT_ROCKET_LAUNCHER)
-		weaponstr = " Rocket Launcher";
-	if (weapon == IT_LIGHTNING)
-		weaponstr = "     Thunderbolt";
-	
-	drawstring('470 365 0', weaponstr, '10 10 0', '1 1 1', 1.0, 0);
-}
-
 void DrawPerks()
 {
 	local string perk1, perk2, perk3;
@@ -171,43 +126,157 @@ void DrawTimer()
 	drawstring ('470 5 0', "Time Left : 1:24", '10 10 0', '1 1 1', 1.0, 0);
 }
 
-void DrawArmour ()
-{
+void DrawArmour() {
 	local float armourint;
 	local string armourstr;
-	local float armour_full;
+	local float items;
+	local vector armourcolour;
 	
 	armourint = getstati(STAT_ARMOR);
 	
 	if (armourint > 0) {
-		armourstr = ftos(armourint); 
-	
-		// get fullness of health
-		armour_full = armourint / 100;
-		armour_full = min(armour_full, 1.0);
-	
-		DrawBar('10 365 0', 100, 10, armour_full, '0.3 0.3 0.3', '0.4 0.6 0.8');
-		drawstring ('12 369 0', armourstr, '8 8 0', '1 1 1', 1.0, 0);
+		armourstr = ftos(armourint);
+		
+		armourcolour = '1 1 1';
+		
+		// What colour?
+		items = getstati(STAT_ITEMS);
+		if (items & IT_ARMOR1) {
+			armourcolour = '0.16 0.91 0.51';
+		}
+		if (items & IT_ARMOR2) {
+			armourcolour = '0.87 0.90 0.16';
+		}
+		if (items & IT_ARMOR3) {
+			armourcolour = '0.90 0.16 0.26';
+		}
+		
+		drawstring('190 375 0', armourstr, '14 14 0', armourcolour, 1.0, 0);
 	}
 }
 
-void DrawHealth ()
-{
+void DrawHealthCross () {
 	local float healthint;
-	local string healthstr;
 	local float health_full;
+	local float cross_height;
+	local float horizontal_cross_height;
+	local vector crosscolour;
 	
 	healthint = getstati(STAT_HEALTH);
-	healthstr = ftos(healthint); 
-	
-	// get fullness of health
+	healthint = max(healthint, 0);
 	health_full = healthint / 100;
 	health_full = min(health_full, 1.0);
 	
-	DrawBar('10 380 0', 100, 10, health_full, '0.3 0.3 0.3', '1.0 0 0');
-	drawstring ('12 384 0', healthstr, '8 8 0', '1 1 1', 1.0, 0);
-	drawstring ('112 382 0', "x3", '6 6 0', '1 1 1', 1.0, 0);
+	// draw background
+	drawfill ('140 310 0', '20 60 0', '0.05 0.05 0.05', 1, 0);
+	drawfill ('120 330 0', '60 20 0', '0.05 0.05 0.05', 1, 0);
+	
+	// what colour to draw the cross?
+	if (healthint > 40) {
+		crosscolour = '0.93 0.91 0.90';
+	} else {
+		crosscolour = '1 0.03 0.01';
+	}
+	
+	// draw the actual cross
+	// how tall should the cross be?
+	cross_height = health_full * 54;
+	
+	drawfill (ConstructVector(143, 313+(54-cross_height), 0), ConstructVector(14, cross_height, 0), crosscolour, 1, 0);
+	if (cross_height > 20 && cross_height < 34) {
+		horizontal_cross_height = cross_height - 20;
+		drawfill (ConstructVector(123, 333+(14-horizontal_cross_height), 0), ConstructVector(54, horizontal_cross_height, 0), crosscolour, 1, 0);
+	} else if (cross_height >= 34) {
+		drawfill ('123 333 0', '54 14 0', crosscolour, 1, 0);
+	}
 }
+
+void DrawHealthText ()
+{
+	local float healthint;
+	local string healthstr;
+	local vector healthcolour;
+	
+	healthint = getstati(STAT_HEALTH);
+	healthint = max(healthint, 0);
+	healthstr = ftos(healthint);
+	
+	// what colour to draw the cross?
+	if (healthint > 40) {
+		healthcolour = '1 1 1';
+	} else {
+		healthcolour = '1 0.03 0.01';
+	}
+	
+	drawstring('160 350 0', healthstr, '26 26 0', healthcolour, 1.0, 0);
+}
+
+void DrawAmmo ()
+{
+	local float ammoint;
+	local string ammostr;
+	local float activeweapon;
+	
+	ammoint = getstati(STAT_AMMO);
+	activeweapon = getstati(STAT_ACTIVEWEAPON);
+	
+	if (ammoint > 0) {
+		ammostr = ftos(ammoint);
+		if ((activeweapon & IT_SHOTGUN) || (activeweapon & IT_SUPER_SHOTGUN)) {
+			drawpic ('422 351 0', "gfx/sb_shells.png", '24 24 0', '1 1 1', 1.0, 0);
+		} else if ((activeweapon & IT_NAILGUN) || (activeweapon & IT_SUPER_NAILGUN)) {
+			drawpic ('422 351 0', "gfx/sb_nails.png", '24 24 0', '1 1 1', 1.0, 0);
+		} else if ((activeweapon & IT_GRENADE_LAUNCHER) || (activeweapon & IT_ROCKET_LAUNCHER)) {
+			drawpic ('422 351 0', "gfx/sb_rocket.png", '24 24 0', '1 1 1', 1.0, 0);
+		} else if ((activeweapon & IT_LIGHTNING)) {
+			drawpic ('422 351 0', "gfx/sb_cells.png", '24 24 0', '1 1 1', 1.0, 0);
+		}
+		drawstring('450 350 0', ammostr, '26 26 0', '1 1 1', 1.0, 0);
+	}
+}
+
+/*
+void DrawReserveAmmo ()
+{
+	local float shellsint;
+	local string shellsstr;
+	local float nailsint;
+	local string nailsstr;
+	local float rocketsint;
+	local string rocketsstr;
+	local float cellsint;
+	local string cellsstr;
+	
+	local float activeweapon;
+	
+	
+	shellsint = getstati(STAT_SHELLS);
+	nailsint = getstati(STAT_NAILS);
+	rocketsint = getstati(STAT_ROCKETS);
+	cellsint = getstati(STAT_CELLS);
+	activeweapon = getstati(STAT_ACTIVEWEAPON);
+	
+	if (shellsint > 0 && !(activeweapon & IT_SHOTGUN) && !(activeweapon & IT_SUPER_SHOTGUN)) {
+		shellsstr = ftos(shellsint);
+		drawstring('400 380 0', shellsstr, '10 10 0', '1 1 1', 1.0, 0);
+	}
+	
+	if (nailsint > 0) {
+		nailsstr = ftos(nailsint);
+		drawstring('440 380 0', nailsstr, '10 10 0', '1 1 1', 1.0, 0);
+	}
+	
+	if (rocketsint > 0) {
+		rocketsstr = ftos(rocketsint);
+		drawstring('480 380 0', rocketsstr, '10 10 0', '1 1 1', 1.0, 0);
+	}
+	
+	if (cellsint > 0) {
+		cellsstr = ftos(cellsint);
+		drawstring('520 380 0', cellsstr, '10 10 0', '1 1 1', 1.0, 0);
+	}
+}
+*/
 
 void CSQC_UpdateView (float width, float height, float menushown) 
 {
@@ -229,15 +298,19 @@ void CSQC_UpdateView (float width, float height, float menushown)
 	renderscene(); 		// render that puppy to our screen, 
 
 	// render hud using builtins like drawstring, drawpic, and any of that fun stuff here!
-	DrawHealth();
+	DrawHealthCross();
+	DrawHealthText();
+	
 	DrawArmour();
 	
-	DrawPerks();
-	
-	DrawWeaponName();
 	DrawAmmo();
+	// DrawReserveAmmo();
 	
-	DrawTimer();
+	// DrawPerks();
+	
+	// DrawWeaponName();
+	
+	// DrawTimer();
 }
 
 float CSQC_InputEvent (float event, float param, float param2)
