@@ -322,6 +322,7 @@ void(entity attacker, float damage)	ogre_pain =
 
 	sound (self, CHAN_VOICE, "ogre/ogpain1.wav", 1, ATTN_NORM);		
 
+	/*
 	r = random();
 	
 	if (r < 0.25)
@@ -349,6 +350,7 @@ void(entity attacker, float damage)	ogre_pain =
 		ogre_paine1 ();
 		self.pain_finished = time + 2;
 	}
+	*/
 };
 
 void()	ogre_die1	=[	$death1,	ogre_die2	] {};

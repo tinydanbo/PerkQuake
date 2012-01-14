@@ -93,8 +93,10 @@ void() shalrath_pain =
 		return;
 
 	sound (self, CHAN_VOICE, "shalrath/pain.wav", 1, ATTN_NORM);
+	/*
 	shal_pain1();
 	self.pain_finished = time + 3;
+	*/
 };
 
 void() shalrath_die =

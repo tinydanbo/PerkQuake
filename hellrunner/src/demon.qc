@@ -135,7 +135,7 @@ void(entity attacker, float damage)	demon1_pain =
 	if (random()*200 > damage)
 		return;		// didn't flinch
 		
-	demon1_pain1 ();
+	// demon1_pain1 ();
 };
 
 void()	demon1_die1		=[	$death1,		demon1_die2	] {

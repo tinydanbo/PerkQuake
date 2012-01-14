@@ -151,6 +151,7 @@ void(entity attacker, float damage)	army_pain =
 
 	r = random();
 
+	/*
 	if (r < 0.2)
 	{
 		self.pain_finished = time + 0.6;
@@ -169,6 +170,7 @@ void(entity attacker, float damage)	army_pain =
 		army_painc1 ();
 		sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
 	}
+	*/
 };
 
 

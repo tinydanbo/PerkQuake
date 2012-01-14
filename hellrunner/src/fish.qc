@@ -145,8 +145,9 @@ void() f_pain9  =[      $pain9, f_run1 ] {ai_pain(6);};
 void(entity attacker, float damage)	fish_pain =
 {
 
-// fish allways do pain frames
-	f_pain1 ();
+	// fish allways do pain frames
+	// no they dont bitch
+	// f_pain1 ();
 };
 
 

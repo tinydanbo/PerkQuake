@@ -199,10 +199,12 @@ void() dog_pain =
 {
 	sound (self, CHAN_VOICE, "dog/dpain1.wav", 1, ATTN_NORM);
 
+	/*
 	if (random() > 0.5)
 		dog_pain1 ();
 	else
 		dog_painb1 ();
+	*/
 };
 
 void() dog_die1		=[	$death1,	dog_die2	] {};

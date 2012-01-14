@@ -220,12 +220,12 @@ void(entity attacker, float damage)	enf_pain =
 	if (self.pain_finished > time)
 		return;
 
-	
 	if (r < 0.5)
 		sound (self, CHAN_VOICE, "enforcer/pain1.wav", 1, ATTN_NORM);
 	else
 		sound (self, CHAN_VOICE, "enforcer/pain2.wav", 1, ATTN_NORM);
 
+	/*
 	if (r < 0.2)
 	{
 		self.pain_finished = time + 1;
@@ -246,6 +246,7 @@ void(entity attacker, float damage)	enf_pain =
 		self.pain_finished = time + 2;
 		enf_paind1 ();
 	}
+	*/
 };
 
 //============================================================================

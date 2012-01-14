@@ -361,7 +361,7 @@ void(entity attacker, float damage) Wiz_Pain =
 	if (random()*70 > damage)
 		return;		// didn't flinch
 
-	wiz_pain1 ();
+	// wiz_pain1 ();
 };
 
 
