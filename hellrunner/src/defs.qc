@@ -136,6 +136,7 @@ void		end_sys_globals;		// flag for structure dumping
 .float		health;
 .float		frags;
 .float		weapon;			// one of the IT_SHOTGUN, etc flags
+.float		perks;			// perks!
 .string		weaponmodel;
 .float		weaponframe;
 .float		currentammo;
@@ -309,6 +310,25 @@ float	IT_INVISIBILITY			= 524288;
 float	IT_INVULNERABILITY		= 1048576;
 float	IT_SUIT					= 2097152;
 float	IT_QUAD					= 4194304;
+
+// perks
+float	PERK_DETERMINATION		= 1;
+float	PERK_VAMPIRISM			= 2;
+float	PERK_STRIKESTWICE		= 4;
+float	PERK_PLANB				= 8;
+float	PERK_SERIALKILLER		= 16;
+float	PERK_BATTLEMEDICINE		= 32;
+float	PERK_PUNISHER			= 64;
+float	PERK_BULLETHOSE			= 128;
+float 	PERK_EXPRESSDELIVERY	= 256;
+float	PERK_TELEKITNESIS		= 512;
+float	PERK_METALEATER			= 1024;
+float	PERK_ARTFULDODGER		= 2048;
+float	PERK_DEMOLITIONMAN		= 4096;
+float	PERK_FINDERSKEEPERS		= 8192;
+float	PERK_DIVINEINTERVENTION	= 16384;
+float	PERK_COLLATERALDAMAGE	= 32768;
+float	PERK_SADISM				= 65536;
 
 // point content values
 

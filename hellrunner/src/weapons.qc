@@ -341,7 +341,8 @@ void() W_FireSuperShotgun =
 	
 	self.currentammo = self.ammo_shells = self.ammo_shells - 2;
 	dir = aim (self, 100000);
-	FireBullets (14, dir, '0.14 0.08 0');
+	// Make the super shotgun more powerful but have a great deal more spread
+	FireBullets (20, dir, '0.4 0.24 0');
 };
 
 
@@ -1266,6 +1267,36 @@ void() QuadCheat =
 };
 
 /*
+==========
+Grant All Perks!
+
+Dev
+==========
+*/
+void() GrantAllPerks =
+{
+	self.perks = 0;
+	self.perks = self.perks + PERK_DETERMINATION;
+	self.perks = self.perks + PERK_VAMPIRISM;
+	self.perks = self.perks + PERK_STRIKESTWICE;
+	self.perks = self.perks + PERK_PLANB;
+	self.perks = self.perks + PERK_SERIALKILLER;
+	self.perks = self.perks + PERK_BATTLEMEDICINE;
+	self.perks = self.perks + PERK_PUNISHER;
+	self.perks = self.perks + PERK_BULLETHOSE;
+	self.perks = self.perks + PERK_EXPRESSDELIVERY;
+	self.perks = self.perks + PERK_TELEKITNESIS;
+	self.perks = self.perks + PERK_METALEATER;
+	self.perks = self.perks + PERK_ARTFULDODGER;
+	self.perks = self.perks + PERK_DEMOLITIONMAN;
+	self.perks = self.perks + PERK_FINDERSKEEPERS;
+	self.perks = self.perks + PERK_DIVINEINTERVENTION;
+	self.perks = self.perks + PERK_COLLATERALDAMAGE;
+	self.perks = self.perks + PERK_SADISM;
+	sprint(self, "All perks granted.\n");
+};
+
+/*
 ============
 ImpulseCommands
 
@@ -1286,6 +1317,8 @@ void() ImpulseCommands =
 		CycleWeaponReverseCommand ();
 	if (self.impulse == 13)
 		W_QuickMelee ();
+	if (self.impulse == 15)
+		GrantAllPerks();
 
 	if (self.impulse == 255)
 		QuadCheat ();

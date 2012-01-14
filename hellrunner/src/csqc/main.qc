@@ -203,7 +203,7 @@ void DrawHealthText ()
 	
 	// what colour to draw the cross?
 	if (healthint > 40) {
-		healthcolour = '1 1 1';
+		healthcolour = '0.73 0.71 0.7';
 	} else {
 		healthcolour = '1 0.03 0.01';
 	}
@@ -231,7 +231,7 @@ void DrawAmmo ()
 		} else if ((activeweapon & IT_LIGHTNING)) {
 			drawpic ('422 351 0', "gfx/sb_cells.png", '24 24 0', '1 1 1', 1.0, 0);
 		}
-		drawstring('450 350 0', ammostr, '26 26 0', '1 1 1', 1.0, 0);
+		drawstring('450 350 0', ammostr, '26 26 0', '0.73 0.71 0.7', 1.0, 0);
 	}
 }
 
@@ -298,8 +298,8 @@ void CSQC_UpdateView (float width, float height, float menushown)
 	renderscene(); 		// render that puppy to our screen, 
 
 	// render hud using builtins like drawstring, drawpic, and any of that fun stuff here!
-	DrawHealthCross();
 	DrawHealthText();
+	DrawHealthCross();
 	
 	DrawArmour();
 	

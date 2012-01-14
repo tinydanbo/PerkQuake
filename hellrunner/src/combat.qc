@@ -72,11 +72,14 @@ void(entity targ, entity attacker) Killed =
 
 	self.enemy = attacker;
 
-// bump the monster counter
+	// bump the monster counter
 	if (self.flags & FL_MONSTER)
 	{
 		killed_monsters = killed_monsters + 1;
 		WriteByte (MSG_ALL, SVC_KILLEDMONSTER);
+		if (attacker.perks & PERK_VAMPIRISM) {
+			DoVampirism(attacker, self);
+		}
 	}
 
 	ClientObituary(self, attacker);

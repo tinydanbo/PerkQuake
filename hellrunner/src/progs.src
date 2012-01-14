@@ -2,6 +2,7 @@
 
 defs.qc
 subs.qc
+perks.qc
 fight.qc
 ai.qc
 combat.qc
