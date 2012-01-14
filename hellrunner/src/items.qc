@@ -1254,6 +1254,13 @@ void() BackpackTouch =
 	self = other;
 	best = W_BestWeapon();
 	self = stemp;
+	
+	// finders keepers
+	if (other.perks & PERK_FINDERSKEEPERS)
+	{
+		self.ammo_shells += 1;
+		self.ammo_nails += 1;
+	}
 
 // change weapons
 	other.ammo_shells = other.ammo_shells + self.ammo_shells;
@@ -1276,7 +1283,11 @@ void() BackpackTouch =
 		acount = 1;
 		s = ftos(self.ammo_shells);
 		sprint (other, s);
-		sprint (other, " shells");
+		if (self.ammo_shells > 1) {
+			sprint (other, " shells");
+		} else {
+			sprint (other, " shell");
+		}
 	}
 	if (self.ammo_nails)
 	{
@@ -1285,7 +1296,11 @@ void() BackpackTouch =
 		acount = 1;
 		s = ftos(self.ammo_nails);
 		sprint (other, s);
-		sprint (other, " nails");
+		if (self.ammo_nails > 1) {
+			sprint (other, " nails");
+		} else {
+			sprint (other, " nail");
+		}
 	}
 	if (self.ammo_rockets)
 	{
@@ -1294,7 +1309,11 @@ void() BackpackTouch =
 		acount = 1;
 		s = ftos(self.ammo_rockets);
 		sprint (other, s);
-		sprint (other, " rockets");
+		if (self.ammo_rockets > 1) {
+			sprint (other, " rockets");
+		} else {
+			sprint (other, " rocket");
+		}
 	}
 	if (self.ammo_cells)
 	{
@@ -1303,7 +1322,11 @@ void() BackpackTouch =
 		acount = 1;
 		s = ftos(self.ammo_cells);
 		sprint (other, s);
-		sprint (other, " cells");
+		if (self.ammo_cells > 1) {
+			sprint (other, " cells");
+		} else {
+			sprint (other, " cell");
+		}
 	}
 	
 	sprint (other, "\n");
