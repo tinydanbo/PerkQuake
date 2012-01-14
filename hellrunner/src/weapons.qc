@@ -923,7 +923,10 @@ void()	player_rocket1;
 void() W_Attack =
 {
 	local	float	r;
+	local float delay;
 
+	delay = -1;
+	
 	if (!W_CheckNoAmmo ())
 		return;
 
@@ -942,19 +945,20 @@ void() W_Attack =
 			player_axec1 ();
 		else
 			player_axed1 ();
-		self.attack_finished = time + 0.5;
+			
+		delay = 0.5;
 	}
 	else if (self.weapon == IT_SHOTGUN)
 	{
 		player_shot1 ();
 		W_FireShotgun ();
-		self.attack_finished = time + 0.5;
+		delay = 0.5;
 	}
 	else if (self.weapon == IT_SUPER_SHOTGUN)
 	{
 		player_shot1 ();
 		W_FireSuperShotgun ();
-		self.attack_finished = time + 0.7;
+		delay = 0.7;
 	}
 	else if (self.weapon == IT_NAILGUN)
 	{
@@ -968,20 +972,29 @@ void() W_Attack =
 	{
 		player_rocket1();
 		W_FireGrenade();
-		self.attack_finished = time + 0.6;
+		delay = 0.6;
 	}
 	else if (self.weapon == IT_ROCKET_LAUNCHER)
 	{
 		player_rocket1();
 		W_FireRocket();
-		self.attack_finished = time + 0.8;
+		delay = 0.8;
 	}
 	else if (self.weapon == IT_LIGHTNING)
 	{
 		player_light1();
-		self.attack_finished = time + 0.1;
+		delay = 0.1;
 		sound (self, CHAN_AUTO, "weapons/lstart.wav", 1, ATTN_NORM);
 	}
+	
+	if (delay > -1) {
+		self.attack_finished = time + delay;
+		
+		if ((self.perks & PERK_DETERMINATION) && (self.health < 40)) {
+			self.attack_finished = GetDeterminationAttackFinished(time, delay);
+		}
+	}
+	
 };
 
 /*

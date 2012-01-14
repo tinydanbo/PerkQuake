@@ -37,3 +37,8 @@ void(entity attacker, entity victim) DoVampirism =
 			attacker.health += 1;
 	}
 }
+
+float(float time, float originaldelay) GetDeterminationAttackFinished =
+{
+	return time + (originaldelay * 0.6);
+}
