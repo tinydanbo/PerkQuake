@@ -396,6 +396,8 @@ void() ogre_die =
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
+		self.ammo_rockets = 2;
+		DropBackpack();
 		return;
 	}
 
