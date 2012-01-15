@@ -49,6 +49,8 @@ const float STAT_CELLS		= 9;
 const float STAT_ACTIVEWEAPON	= 10;
 const float STAT_ITEMS		= 15;
 
+const float	STAT_SERIALKILLERRANK = 32;
+
 const float IT_AXE = 4096;
 const float IT_SHOTGUN = 1;
 const float IT_SUPER_SHOTGUN = 2;

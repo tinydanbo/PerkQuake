@@ -334,6 +334,9 @@ void() worldspawn =
 
 	// 63 testing
 	lightstyle(63, "a");
+	
+	// add stat
+	addstat(STAT_SERIALKILLERRANK, 2, serial_killer_rank);
 };
 
 void() StartFrame =

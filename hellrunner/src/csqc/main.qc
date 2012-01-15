@@ -354,6 +354,38 @@ void DrawKeys() {
 	
 }
 
+void DrawSerialKillerStatus() {
+	local float rank;
+	local string rankstr;
+	local vector rankcolour;
+	
+	rank = getstati(STAT_SERIALKILLERRANK);
+	rankstr = strcat("Serial Killer ", ftos(rank));
+	rankstr = strcat(rankstr, "!");
+	
+	rankcolour = '1 1 1';
+	
+	if (rank > 0) {
+		rankcolour = '1 0.8 0.8';
+	}
+	if (rank > 1) {
+		rankcolour = '1 0.6 0.6';
+	}
+	if (rank > 2) {
+		rankcolour = '1 0.4 0.4';
+	}
+	if (rank > 3) {
+		rankcolour = '1 0.2 0.2';
+	}
+	if (rank > 4) {
+		rankcolour = '1 0 0';
+	}
+	
+	if (rank > 0) {
+		drawstring('420 340 0', rankstr, '8 8 0', rankcolour, 1.0, 0);
+	}
+}
+
 void CSQC_UpdateView (float width, float height, float menushown) 
 {
 	// make a function to update any local resolution stuff and call it here.. We'd do this for resolution independent locations to render pictures or things. 
@@ -383,6 +415,8 @@ void CSQC_UpdateView (float width, float height, float menushown)
 	DrawAmmo();
 	
 	DrawKeys();
+	
+	DrawSerialKillerStatus();
 	
 	// DrawReserveAmmo();
 	

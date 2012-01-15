@@ -416,6 +416,8 @@ float	MSG_ONE			= 1;		// reliable to one (msg_entity)
 float	MSG_ALL			= 2;		// reliable to all
 float	MSG_INIT		= 3;		// write to the init string
 
+const float	STAT_SERIALKILLERRANK = 32;
+
 //================================================
 
 //
