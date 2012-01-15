@@ -337,6 +337,23 @@ void DrawReserveAmmo ()
 }
 */
 
+void DrawKeys() {
+	local float items;
+	
+	items = getstati(STAT_ITEMS);
+	
+	if (items & IT_KEY1) {
+		drawfill ('0 362 0', '20 20 0', '0 0 0', 0.5, 0);
+		drawpic ('2 364 0', "gfx/sb_key1", '16 16 0', '1 1 1', 1.0, 0);
+	}
+	
+	if (items & IT_KEY2) {
+		drawfill ('0 382 0', '20 20 0', '0 0 0', 0.5, 0);
+		drawpic ('2 384 0', "gfx/sb_key2", '16 16 0', '1 1 1', 1.0, 0);
+	}
+	
+}
+
 void CSQC_UpdateView (float width, float height, float menushown) 
 {
 	// make a function to update any local resolution stuff and call it here.. We'd do this for resolution independent locations to render pictures or things. 
@@ -364,6 +381,9 @@ void CSQC_UpdateView (float width, float height, float menushown)
 	DrawArmour();
 	
 	DrawAmmo();
+	
+	DrawKeys();
+	
 	// DrawReserveAmmo();
 	
 	// DrawPerks();
