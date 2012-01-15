@@ -196,6 +196,60 @@ void DrawHealthCross () {
 	}
 }
 
+
+void DrawCross(vector loc, float crosssize) {
+	local vector squaresize;
+	local vector toploc;
+	local vector bottomloc;
+	local vector leftloc;
+	local vector rightloc;
+	
+	squaresize_x = crosssize;
+	squaresize_y = crosssize;
+	squaresize_z = 0;
+	
+	toploc_x = loc_x;
+	toploc_y = loc_y - crosssize;
+	toploc_z = 0;
+	
+	bottomloc_x = loc_x;
+	bottomloc_y = loc_y + crosssize;
+	bottomloc_z = 0;
+	
+	leftloc_x = loc_x - crosssize;
+	leftloc_y = loc_y;
+	leftloc_z = 0;
+	
+	rightloc_x = loc_x + crosssize;
+	rightloc_y = loc_y;
+	rightloc_z = 0;
+	
+	drawfill(loc, squaresize, '0.9 0.9 0.9', 0.5, 0);
+	drawfill(toploc, squaresize, '0.9 0.9 0.9', 0.5, 0);
+	drawfill(bottomloc, squaresize, '0.9 0.9 0.9', 0.5, 0);
+	drawfill(leftloc, squaresize, '0.9 0.9 0.9', 0.5, 0);
+	drawfill(rightloc, squaresize, '0.9 0.9 0.9', 0.5, 0);
+}
+
+void DrawOverhealCross () {
+	local float healthint;
+	local float cross_size;
+	local vector cross_location;
+	
+	healthint = getstati(STAT_HEALTH);
+	healthint = max(healthint, 0);
+	
+	if (healthint > 100) {
+		cross_size = 20 + (((healthint - 100) / 150) * 12);
+		
+		cross_location_x = 140 - (((healthint - 100) / 150) * 6);
+		cross_location_y = 330 - (((healthint - 100) / 150) * 6);
+		cross_location_z = 0;
+		
+		DrawCross(cross_location, cross_size);
+	}
+}
+
 void DrawHealthText ()
 {
 	local float healthint;
@@ -303,8 +357,9 @@ void CSQC_UpdateView (float width, float height, float menushown)
 	renderscene(); 		// render that puppy to our screen, 
 
 	// render hud using builtins like drawstring, drawpic, and any of that fun stuff here!
-	DrawHealthText();
+	DrawOverhealCross();
 	DrawHealthCross();
+	DrawHealthText();
 	
 	DrawArmour();
 	
