@@ -726,6 +726,16 @@ void() PlayerDeathThink =
 	respawn();
 };
 
+void() PlayerDoubleJump =
+{
+	if (self.hasdoublejumped < 1) {
+		sound (self, CHAN_BODY, "player/plyrjmp8.wav", 1, ATTN_NORM);
+		self.velocity_z = 320;
+		self.velocity_x += (self.movement_y * 0.01);
+		self.velocity_y += (self.movement_x * 0.01);
+		self.hasdoublejumped += 1;
+	}
+}
 
 void() PlayerJump =
 {
@@ -755,15 +765,20 @@ void() PlayerJump =
 
 		return;
 	}
-
-	if (!(self.flags & FL_ONGROUND))
-		return;
-
+	
 	if ( !(self.flags & FL_JUMPRELEASED) )
 		return;		// don't pogo stick
 
 	self.flags = self.flags - (self.flags & FL_JUMPRELEASED);
 
+	if ((self.perks & PERK_ARTFULDODGER) && !(self.flags & FL_ONGROUND)) {
+		PlayerDoubleJump();
+		return;
+	}
+	
+	if (!(self.flags & FL_ONGROUND))
+		return;
+	
 	self.flags = self.flags - FL_ONGROUND;	// don't stairwalk
 	
 	self.button2 = 0;
@@ -947,7 +962,10 @@ void() PlayerPreThink =
 	
 	if (self.deadflag == DEAD_DYING)
 		return;	// dying, so do nothing
-
+	
+	if (self.flags & FL_ONGROUND)
+		self.hasdoublejumped = 0;
+	
 	if (self.button2)
 	{
 		PlayerJump ();

@@ -516,6 +516,7 @@ float	AS_MISSILE		= 4;
 .float		bubble_count;	// keeps track of the number of bubbles
 .string		deathtype;		// keeps track of how the player died
 
+.float		hasdoublejumped;
 //
 // object stuff
 //
