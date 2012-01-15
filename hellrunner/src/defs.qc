@@ -521,7 +521,7 @@ float	AS_MISSILE		= 4;
 .vector		oldorigin;		// only used by secret door
 
 .float		t_length, t_width;
-
+.float		bounced;
 
 //
 // doors, etc

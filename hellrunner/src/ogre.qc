@@ -70,7 +70,7 @@ void() OgreGrenadeExplode =
 
 void() OgreGrenadeTouch =
 {
-	if (other == self.owner)
+	if ((other == self.owner) || ((other.perks & PERK_LIGHTFEET) && self.bounced > 0))
 		return;		// don't explode on owner
 	if (other.takedamage == DAMAGE_AIM)
 	{
@@ -78,6 +78,7 @@ void() OgreGrenadeTouch =
 		return;
 	}
 	sound (self, CHAN_VOICE, "weapons/bounce.wav", 1, ATTN_NORM);	// bounce sound
+	self.bounced += 1;
 	if (self.velocity == '0 0 0')
 		self.avelocity = '0 0 0';
 };

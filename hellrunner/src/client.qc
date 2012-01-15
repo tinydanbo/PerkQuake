@@ -900,16 +900,24 @@ void() PlayerPreThink =
 {
 	local	float	mspeed, aspeed;
 	local	float	r;
+	local	float	maxspeed;
 	
+	maxspeed = 320;
+	if (self.perks & PERK_LIGHTFEET) {
+		maxspeed *= 1.1;
+	}
 	if ((self.perks & PERK_DETERMINATION) && (self.health < 40)) {
-		stuffcmd(self, "sv_maxspeed 400\n");
+		maxspeed *= 1.4;
 		stuffcmd(self, "sv_accelerate 10\n");
 		stuffcmd(self, "sv_friction 10\n");
 	} else {
-		stuffcmd(self, "sv_maxspeed 320\n");
 		stuffcmd(self, "sv_accelerate 7\n");
 		stuffcmd(self, "sv_friction 4\n");
 	}
+	
+	stuffcmd(self, "sv_maxspeed ");
+	stuffcmd(self, ftos(maxspeed));
+	stuffcmd(self, "\n");
 	
 	if (intermission_running)
 	{
