@@ -154,6 +154,10 @@ void() health_touch =
 	
 	if (other.classname != "player")
 		return;
+		
+	if (other.perks & PERK_BATTLEMEDICINE) {
+		self.healamount *= 1.5;
+	}
 	
 	if (self.healtype == 2) // Megahealth?  Ignore max_health...
 	{
@@ -185,9 +189,13 @@ void() health_touch =
 	if (self.healtype == 2)
 	{
 		other.items = other.items | IT_SUPERHEALTH;
-		self.nextthink = time + 5;
-		self.think = item_megahealth_rot;
-		self.owner = other;
+		if (other.perks & PERK_BATTLEMEDICINE) {
+			// don't do anything
+		} else {
+			self.nextthink = time + 5;
+			self.think = item_megahealth_rot;
+			self.owner = other;
+		}
 	}
 	else
 	{

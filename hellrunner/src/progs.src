@@ -1,7 +1,9 @@
 ../progs.dat
 
+dpextensions.qc
 defs.qc
 subs.qc
+playermovement.qc
 perks.qc
 fight.qc
 ai.qc
