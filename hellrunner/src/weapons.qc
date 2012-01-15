@@ -400,20 +400,24 @@ void() T_MissileTouch =
 		T_Damage (other, self, self.owner, damg );
 	}
 
-	// don't do radius damage to the other, because all the damage
-	// was done in the impact
-	T_RadiusDamage (self, self.owner, 120, other);
+	if ((self.owner.perks & PERK_EXPRESSDELIVERY) && (other.health < -10)) {
+		// nah
+	} else {
+		// don't do radius damage to the other, because all the damage
+		// was done in the impact
+		T_RadiusDamage (self, self.owner, 120, other);
 
-//	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
-	self.origin = self.origin - 8*normalize(self.velocity);
+		//	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
+		self.origin = self.origin - 8*normalize(self.velocity);
+	
+		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+		WriteByte (MSG_BROADCAST, TE_EXPLOSION);
+		WriteCoord (MSG_BROADCAST, self.origin_x);
+		WriteCoord (MSG_BROADCAST, self.origin_y);
+		WriteCoord (MSG_BROADCAST, self.origin_z);
 
-	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-	WriteByte (MSG_BROADCAST, TE_EXPLOSION);
-	WriteCoord (MSG_BROADCAST, self.origin_x);
-	WriteCoord (MSG_BROADCAST, self.origin_y);
-	WriteCoord (MSG_BROADCAST, self.origin_z);
-
-	BecomeExplosion ();
+		BecomeExplosion ();
+	}
 };
 
 
@@ -445,6 +449,12 @@ void() W_FireRocket =
 	missile.velocity = aim(self, 1000);
 	missile.velocity = missile.velocity * 1000;
 	missile.angles = vectoangles(missile.velocity);
+	
+	if (self.perks & PERK_EXPRESSDELIVERY) {
+		missile.velocity_x *= 1.3;
+		missile.velocity_y *= 1.3;
+		missile.velocity_z *= 1.3;
+	}
 	
 	missile.touch = T_MissileTouch;
 	
@@ -626,6 +636,12 @@ void() W_FireGrenade =
 		missile.velocity = missile.velocity * 600;
 		missile.velocity_z = 200;
 	}
+	
+	if (self.perks & PERK_EXPRESSDELIVERY) {
+		missile.velocity_x *= 1.3;
+		missile.velocity_y *= 1.3;
+		missile.velocity_z *= 1.3;
+	}
 
 	missile.avelocity = '300 300 300';
 
@@ -687,6 +703,13 @@ void() W_FireSuperSpikes =
 	dir = aim (self, 1000);
 	launch_spike (self.origin + '0 0 16', dir);
 	newmis.touch = superspike_touch;
+	
+	if (self.perks & PERK_EXPRESSDELIVERY) {
+		newmis.velocity_x *= 1.3;
+		newmis.velocity_y *= 1.3;
+		newmis.velocity_z *= 1.3;
+	}
+	
 	setmodel (newmis, "progs/s_spike.mdl");
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);		
 	self.punchangle_x = -2;
@@ -718,6 +741,11 @@ void(float ox) W_FireSpikes =
 	dir = aim (self, 1000);
 	launch_spike (self.origin + '0 0 16' + v_right*ox, dir);
 
+	if (self.perks & PERK_EXPRESSDELIVERY) {
+		newmis.velocity_x *= 1.3;
+		newmis.velocity_y *= 1.3;
+		newmis.velocity_z *= 1.3;
+	}
 	self.punchangle_x = -2;
 };
 
