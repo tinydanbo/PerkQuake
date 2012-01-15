@@ -42,3 +42,19 @@ float(float time, float originaldelay) GetDeterminationAttackFinished =
 {
 	return time + (originaldelay * 0.6);
 }
+
+void(entity player) MaintainSerialKiller =
+{
+	if ((player.serial_killer_finished <= time) && (player.serial_killer_rank > 0)) {
+		player.serial_killer_rank = 0;
+	}
+}
+
+void(entity player) DoSerialKiller =
+{
+	if (player.serial_killer_rank < 5) {
+		player.serial_killer_rank += 1;
+	}
+	
+	player.serial_killer_finished = time + 3;
+}

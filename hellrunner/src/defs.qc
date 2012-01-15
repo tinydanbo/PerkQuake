@@ -498,6 +498,9 @@ float	AS_MISSILE		= 4;
 .float		rad_time;
 .float		fly_sound;
 
+.float		serial_killer_rank;
+.float		serial_killer_finished;
+
 .float		axhitme;
 
 .float		show_hostile;	// set to time+0.2 whenever a client fires a

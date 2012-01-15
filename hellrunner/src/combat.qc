@@ -80,6 +80,9 @@ void(entity targ, entity attacker) Killed =
 		if (attacker.perks & PERK_VAMPIRISM) {
 			DoVampirism(attacker, self);
 		}
+		if (attacker.perks & PERK_SERIALKILLER) {
+			DoSerialKiller(attacker);
+		}
 	}
 
 	ClientObituary(self, attacker);

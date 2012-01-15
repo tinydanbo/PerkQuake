@@ -40,6 +40,15 @@ void() W_QuickMelee =
 	local	vector	source;
 	local	vector	org;
 	local	vector	kickdir;
+	local	float	damg;
+	local	float	kick;
+	
+	damg = 10;
+	kick = 170;
+	if (self.perks & PERK_SERIALKILLER) {
+		damg += ((damg / 5) * self.serial_killer_rank);
+		kick += ((kick / 5) * self.serial_killer_rank);
+	}
 
 	self.punchangle = self.punchangle + '-5 2 0';
 	self.weaponmodel = "progs/v_leg.mdl";
@@ -62,12 +71,12 @@ void() W_QuickMelee =
 	{
 		trace_ent.axhitme = 1;
 		SpawnBlood (org, '0 0 0', 20);
-		T_Damage (trace_ent, self, self, 10);
+		T_Damage (trace_ent, self, self, damg);
 		
 		kickdir = trace_ent.origin - source;
 		kickdir = normalize(kickdir);
 		trace_ent.origin = trace_ent.origin + '0 0 10';
-		trace_ent.velocity = trace_ent.velocity + kickdir*170 + '0 0 240';
+		trace_ent.velocity = trace_ent.velocity + kickdir*kick + '0 0 240';
 		
 	}
 
@@ -82,6 +91,12 @@ void() W_FireAxe =
 {
 	local	vector	source;
 	local	vector	org;
+	local	float	damg;
+	
+	damg = 20;
+	if (self.perks & PERK_SERIALKILLER) {
+		damg += ((damg / 5) * self.serial_killer_rank);
+	}
 
 	makevectors (self.v_angle);
 	source = self.origin + '0 0 16';
@@ -95,7 +110,7 @@ void() W_FireAxe =
 	{
 		trace_ent.axhitme = 1;
 		SpawnBlood (org, '0 0 0', 20);
-		T_Damage (trace_ent, self, self, 20);
+		T_Damage (trace_ent, self, self, damg);
 	}
 	else
 	{	// hit wall
@@ -277,7 +292,7 @@ Used by shotgun, super shotgun, and enemy soldier firing
 Go to the trouble of combining multiple pellets into a single damage call.
 ================
 */
-void(float shotcount, vector dir, vector spread) FireBullets =
+void(float shotcount, vector dir, vector spread, float damage) FireBullets =
 {
 	local	vector direction;
 	local	vector	src;
@@ -294,7 +309,7 @@ void(float shotcount, vector dir, vector spread) FireBullets =
 
 		traceline (src, src + direction*2048, FALSE, self);
 		if (trace_fraction != 1.0)
-			TraceAttack (4, direction);
+			TraceAttack (damage, direction);
 
 		shotcount = shotcount - 1;
 	}
@@ -309,6 +324,12 @@ W_FireShotgun
 void() W_FireShotgun =
 {
 	local vector dir;
+	local float damage;
+	
+	damage = 4;
+	if (self.perks & PERK_SERIALKILLER) {
+		damage += (0.8 * self.serial_killer_rank);
+	}
 
 	sound (self, CHAN_WEAPON, "weapons/guncock.wav", 1, ATTN_NORM);	
 
@@ -317,9 +338,9 @@ void() W_FireShotgun =
 	self.currentammo = self.ammo_shells = self.ammo_shells - 1;
 	dir = aim (self, 100000);
 	if (self.perks & PERK_LONGBARREL) {
-		FireBullets (6, dir, '0.02 0.02 0');
+		FireBullets (6, dir, '0.02 0.02 0', damage);
 	} else {
-		FireBullets (6, dir, '0.04 0.04 0');
+		FireBullets (6, dir, '0.04 0.04 0', damage);
 	}
 };
 
@@ -332,7 +353,13 @@ W_FireSuperShotgun
 void() W_FireSuperShotgun =
 {
 	local vector dir;
-
+	local float damage;
+	
+	damage = 4;
+	if (self.perks & PERK_SERIALKILLER) {
+		damage += (0.8 * self.serial_killer_rank);
+	}
+	
 	if (self.currentammo == 1)
 	{
 		W_FireShotgun ();
@@ -346,9 +373,9 @@ void() W_FireSuperShotgun =
 	self.currentammo = self.ammo_shells = self.ammo_shells - 2;
 	dir = aim (self, 100000);
 	if (self.perks & PERK_LONGBARREL) {
-		FireBullets (20, dir, '0.26 0.12 0');
+		FireBullets (20, dir, '0.26 0.12 0', damage);
 	} else {
-		FireBullets (20, dir, '0.4 0.24 0');
+		FireBullets (20, dir, '0.4 0.24 0', damage);
 	}
 };
 
@@ -381,6 +408,7 @@ void() BecomeExplosion =
 void() T_MissileTouch =
 {
 	local float	damg;
+	local float splashdamg;
 
 	if (other == self.owner)
 		return;		// don't explode on owner
@@ -395,8 +423,12 @@ void() T_MissileTouch =
 	
 	if (other.health)
 	{
-		if (other.classname == "monster_shambler")
+		if (other.classname == "monster_shambler") {
 			damg = damg * 0.5;	// mostly immune
+		}
+		if (self.owner.perks & PERK_SERIALKILLER) {
+			damg += ((damg / 5) * self.owner.serial_killer_rank);
+		}
 		T_Damage (other, self, self.owner, damg );
 	}
 
@@ -405,7 +437,11 @@ void() T_MissileTouch =
 	} else {
 		// don't do radius damage to the other, because all the damage
 		// was done in the impact
-		T_RadiusDamage (self, self.owner, 120, other);
+		splashdamg = 120;
+		if (self.owner.perks & PERK_SERIALKILLER) {
+			splashdamg += ((splashdamg / 5) * self.owner.serial_killer_rank);
+		}
+		T_RadiusDamage (self, self.owner, splashdamg, other);
 
 		//	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
 		self.origin = self.origin - 8*normalize(self.velocity);
@@ -528,6 +564,7 @@ void() W_FireLightning =
 {
 	local	vector		org;
 	local	float		cells;
+	local	float		damg;
 
 	if (self.ammo_cells < 1)
 	{
@@ -569,7 +606,11 @@ void() W_FireLightning =
 	WriteCoord (MSG_BROADCAST, trace_endpos_y);
 	WriteCoord (MSG_BROADCAST, trace_endpos_z);
 
-	LightningDamage (self.origin, trace_endpos + v_forward*4, self, 30);
+	damg = 30;
+	if (self.perks & PERK_SERIALKILLER) {
+			damg += ((damg / 5) * self.serial_killer_rank);
+	}
+	LightningDamage (self.origin, trace_endpos + v_forward*4, self, damg);
 };
 
 
@@ -578,7 +619,13 @@ void() W_FireLightning =
 
 void() GrenadeExplode =
 {
-	T_RadiusDamage (self, self.owner, 120, world);
+	local float damg;
+	
+	damg = 120;
+	if (self.owner.perks & PERK_SERIALKILLER) {
+		damg += ((damg / 5) * self.owner.serial_killer_rank);
+	}
+	T_RadiusDamage (self, self.owner, damg, world);
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_EXPLOSION);
@@ -754,7 +801,9 @@ void(float ox) W_FireSpikes =
 .float hit_z;
 void() spike_touch =
 {
-local float rand;
+	local float rand;
+	local float damg;
+	
 	if (other == self.owner)
 		return;
 
@@ -767,11 +816,16 @@ local float rand;
 		return;
 	}
 	
-// hit something that bleeds
+	damg = 9;
+	if (self.owner.perks & PERK_SERIALKILLER) {
+		damg += ((damg / 5) * self.owner.serial_killer_rank);
+	}
+	
+	// hit something that bleeds
 	if (other.takedamage)
 	{
 		spawn_touchblood (9);
-		T_Damage (other, self, self.owner, 9);
+		T_Damage (other, self, self.owner, damg);
 	}
 	else
 	{
@@ -794,7 +848,9 @@ local float rand;
 
 void() superspike_touch =
 {
-local float rand;
+	local float rand;
+	local float damg;
+	
 	if (other == self.owner)
 		return;
 
@@ -807,11 +863,16 @@ local float rand;
 		return;
 	}
 	
-// hit something that bleeds
+	damg = 18;
+	if (self.owner.perks & PERK_SERIALKILLER) {
+		damg += ((damg / 5) * self.owner.serial_killer_rank);
+	}
+	
+	// hit something that bleeds
 	if (other.takedamage)
 	{
 		spawn_touchblood (18);
-		T_Damage (other, self, self.owner, 18);
+		T_Damage (other, self, self.owner, damg);
 	}
 	else
 	{
