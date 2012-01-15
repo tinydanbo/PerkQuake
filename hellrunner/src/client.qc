@@ -59,6 +59,7 @@ void() SetChangeParms =
 	parm7 = self.ammo_cells;
 	parm8 = self.weapon;
 	parm9 = self.armortype * 100;
+	parm10 = self.perks;
 };
 
 void() SetNewParms =
@@ -72,6 +73,7 @@ void() SetNewParms =
 	parm7 = 0;
 	parm8 = 1;
 	parm9 = 0;
+	parm10 = 0;
 };
 
 void() DecodeLevelParms =
@@ -91,6 +93,7 @@ void() DecodeLevelParms =
 	self.ammo_cells = parm7;
 	self.weapon = parm8;
 	self.armortype = parm9 * 0.01;
+	self.perks = parm10;
 };
 
 /*
