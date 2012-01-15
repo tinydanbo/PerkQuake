@@ -354,13 +354,14 @@ void() W_FireSuperShotgun =
 {
 	local vector dir;
 	local float damage;
+	local float shellsused;
 	
 	damage = 4;
 	if (self.perks & PERK_SERIALKILLER) {
 		damage += (0.8 * self.serial_killer_rank);
 	}
 	
-	if (self.currentammo == 1)
+	if (self.currentammo == 1 )
 	{
 		W_FireShotgun ();
 		return;
@@ -370,7 +371,14 @@ void() W_FireSuperShotgun =
 
 	self.punchangle_x = -4;
 	
-	self.currentammo = self.ammo_shells = self.ammo_shells - 2;
+	shellsused = 2;
+	
+	if (self.perks & PERK_BUDGETING) {
+		shellsused *= 0.75;
+	} 
+	
+	self.currentammo = self.ammo_shells = self.ammo_shells - shellsused;
+	
 	dir = aim (self, 100000);
 	if (self.perks & PERK_LONGBARREL) {
 		FireBullets (20, dir, '0.26 0.12 0', damage);
@@ -743,10 +751,19 @@ void() W_FireSuperSpikes =
 {
 	local vector	dir;
 	local entity	old;
+	local float		nailsused;
 	
 	sound (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
 	self.attack_finished = time + 0.2;
-	self.currentammo = self.ammo_nails = self.ammo_nails - 2;
+	
+	nailsused = 2;
+	
+	if (self.perks & PERK_BUDGETING) {
+		nailsused *= 0.75;
+	} 
+	
+	self.currentammo = self.ammo_nails = self.ammo_nails - nailsused;
+	
 	dir = aim (self, 1000);
 	launch_spike (self.origin + '0 0 16', dir);
 	newmis.touch = superspike_touch;
@@ -1407,6 +1424,7 @@ void() GrantAllPerks =
 	self.perks = self.perks + PERK_LIGHTFEET;
 	self.perks = self.perks + PERK_STOPWATCH;
 	self.perks = self.perks + PERK_LONGBARREL;
+	self.perks = self.perks + PERK_BUDGETING;
 	
 	sprint(self, "All perks granted.\n");
 };
