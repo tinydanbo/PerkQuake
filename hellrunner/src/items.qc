@@ -157,6 +157,7 @@ void() health_touch =
 		
 	if (other.perks & PERK_BATTLEMEDICINE) {
 		self.healamount *= 1.5;
+		self.healamount = floor(self.healamount);
 	}
 	
 	if (self.healtype == 2) // Megahealth?  Ignore max_health...
