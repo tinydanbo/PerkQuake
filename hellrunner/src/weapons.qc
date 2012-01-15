@@ -316,7 +316,11 @@ void() W_FireShotgun =
 	
 	self.currentammo = self.ammo_shells = self.ammo_shells - 1;
 	dir = aim (self, 100000);
-	FireBullets (6, dir, '0.04 0.04 0');
+	if (self.perks & PERK_LONGBARREL) {
+		FireBullets (6, dir, '0.02 0.02 0');
+	} else {
+		FireBullets (6, dir, '0.04 0.04 0');
+	}
 };
 
 
@@ -341,8 +345,11 @@ void() W_FireSuperShotgun =
 	
 	self.currentammo = self.ammo_shells = self.ammo_shells - 2;
 	dir = aim (self, 100000);
-	// Make the super shotgun more powerful but have a great deal more spread
-	FireBullets (20, dir, '0.4 0.24 0');
+	if (self.perks & PERK_LONGBARREL) {
+		FireBullets (20, dir, '0.26 0.12 0');
+	} else {
+		FireBullets (20, dir, '0.4 0.24 0');
+	}
 };
 
 
@@ -1306,6 +1313,12 @@ void() GrantAllPerks =
 	self.perks = self.perks + PERK_DIVINEINTERVENTION;
 	self.perks = self.perks + PERK_COLLATERALDAMAGE;
 	self.perks = self.perks + PERK_SADISM;
+	self.perks = self.perks + PERK_BLOODYMESS;
+	self.perks = self.perks + PERK_JUGGLER;
+	self.perks = self.perks + PERK_LIGHTFEET;
+	self.perks = self.perks + PERK_STOPWATCH;
+	self.perks = self.perks + PERK_LONGBARREL;
+	
 	sprint(self, "All perks granted.\n");
 };
 
