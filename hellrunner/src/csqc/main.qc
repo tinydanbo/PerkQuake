@@ -131,6 +131,7 @@ void DrawArmour() {
 	local string armourstr;
 	local float items;
 	local vector armourcolour;
+	local string armouricon;
 	
 	armourint = getstati(STAT_ARMOR);
 	
@@ -142,16 +143,20 @@ void DrawArmour() {
 		// What colour?
 		items = getstati(STAT_ITEMS);
 		if (items & IT_ARMOR1) {
-			armourcolour = '0.16 0.91 0.51';
+			armourcolour = '0.06 0.66 0.11';
+			armouricon = "gfx/sb_armor1.png";
 		}
 		if (items & IT_ARMOR2) {
 			armourcolour = '0.87 0.90 0.16';
+			armouricon = "gfx/sb_armor2.png";
 		}
 		if (items & IT_ARMOR3) {
 			armourcolour = '0.90 0.16 0.26';
+			armouricon = "gfx/sb_armor3.png";
 		}
 		
-		drawstring('190 375 0', armourstr, '14 14 0', armourcolour, 1.0, 0);
+		drawstring('181 375 0', armourstr, '14 14 0', armourcolour, 1.0, 0);
+		drawpic ('165 375 0', armouricon, '14 14 0', '1 1 1', 1.0, 0);
 	}
 }
 
