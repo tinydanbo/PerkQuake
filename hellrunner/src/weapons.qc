@@ -42,12 +42,22 @@ void() W_QuickMelee =
 	local	vector	kickdir;
 	local	float	damg;
 	local	float	kick;
+	local 	float	vertikick;
+	local	float	distance;
 	
 	damg = 10;
 	kick = 170;
+	vertikick = 240;
+	distance = 64;
 	if (self.perks & PERK_SERIALKILLER) {
 		damg += ((damg / 5) * self.serial_killer_rank);
 		kick += ((kick / 5) * self.serial_killer_rank);
+	}
+	if (self.perks & PERK_CRAZYLEGS) {
+		distance *= 1.75;
+		kick *= 1.75;
+		vertikick *= 1.75;
+		DoCrazyLegsAutoAim(self, distance);
 	}
 
 	self.punchangle = self.punchangle + '-5 2 0';
@@ -61,7 +71,7 @@ void() W_QuickMelee =
 	
 	makevectors (self.v_angle);
 	source = self.origin + '0 0 16';
-	traceline (source, source + v_forward*64, FALSE, self);
+	traceline (source, source + v_forward*distance, FALSE, self);
 	if (trace_fraction == 1.0)
 		return;
 	
@@ -76,7 +86,8 @@ void() W_QuickMelee =
 		kickdir = trace_ent.origin - source;
 		kickdir = normalize(kickdir);
 		trace_ent.origin = trace_ent.origin + '0 0 10';
-		trace_ent.velocity = trace_ent.velocity + kickdir*kick + '0 0 240';
+		trace_ent.velocity = trace_ent.velocity + kickdir*kick;
+		trace_ent.velocity_z += vertikick;
 		
 	}
 
@@ -1425,6 +1436,7 @@ void() GrantAllPerks =
 	self.perks = self.perks + PERK_STOPWATCH;
 	self.perks = self.perks + PERK_LONGBARREL;
 	self.perks = self.perks + PERK_BUDGETING;
+	self.perks = self.perks + PERK_CRAZYLEGS;
 	
 	sprint(self, "All perks granted.\n");
 };

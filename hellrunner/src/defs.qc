@@ -335,6 +335,7 @@ float	PERK_LIGHTFEET			= 524288;
 float	PERK_STOPWATCH			= 1048576;
 float	PERK_LONGBARREL			= 2097152;
 float	PERK_BUDGETING			= 4194304;
+float	PERK_CRAZYLEGS			= 8388608;
 
 // point content values
 
