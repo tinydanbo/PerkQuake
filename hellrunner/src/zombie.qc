@@ -415,12 +415,19 @@ FIXME: don't use pain_finished because of nightmare hack
 void(entity attacker, float take) zombie_pain =
 {
 	local float r;
+	
+	self.lastattacker = attacker;
 
 	self.health = 60;		// allways reset health
 
 	if (take < 9)
 		return;				// totally ignore
 
+	if (attacker.perks & PERK_BLOODYMESS) {
+		zombie_die();
+		return;
+	}
+	
 	if (self.inpain == 2)
 		return;			// down on ground, so don't reset any counters
 

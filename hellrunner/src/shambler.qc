@@ -273,6 +273,9 @@ void() sham_pain6       =[      $pain6, sham_run1      ] {};
 
 void(entity attacker, float damage)	sham_pain =
 {
+
+	self.lastattacker = attacker;
+	
 	sound (self, CHAN_VOICE, "shambler/shurt2.wav", 1, ATTN_NORM);
 
 	if (self.health <= 0)
@@ -306,7 +309,7 @@ void() sham_death11     =[      $death11,      sham_death11    ] {};
 void() sham_die =
 {
 // check for gib
-	if (self.health < -60)
+	if (self.health < -60 || (self.lastattacker.perks & PERK_BLOODYMESS))
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowHead ("progs/h_shams.mdl", self.health);

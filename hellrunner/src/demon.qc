@@ -123,6 +123,8 @@ void()	demon1_pain6	=[	$pain6,		demon1_run1	] {};
 
 void(entity attacker, float damage)	demon1_pain =
 {
+	self.lastattacker = attacker;
+	
 	if (self.touch == Demon_JumpTouch)
 		return;
 
@@ -153,7 +155,7 @@ void()	demon1_die9		=[	$death9,		demon1_die9 ] {};
 void() demon_die =
 {
 // check for gib
-	if (self.health < -80)
+	if ((self.health < -80) || (self.lastattacker.perks & PERK_BLOODYMESS))
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowHead ("progs/h_demon.mdl", self.health);

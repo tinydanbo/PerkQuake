@@ -146,6 +146,8 @@ void()	knight_painb11	=[	$painb11,	knight_run1	] {};
 void(entity attacker, float damage)	knight_pain =
 {
 	local float r;
+	
+	self.lastattacker = attacker;
 
 	if (self.pain_finished > time)
 		return;
@@ -216,7 +218,7 @@ void()	knight_dieb11 = [	$deathb11,	knight_dieb11] {};
 void() knight_die =
 {
 // check for gib
-	if (self.health < -40)
+	if (self.health < -40 || (self.lastattacker.perks & PERK_BLOODYMESS))
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowHead ("progs/h_knight.mdl", self.health);

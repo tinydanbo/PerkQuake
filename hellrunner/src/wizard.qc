@@ -341,7 +341,7 @@ void()	wiz_death8	=[	$death8,		wiz_death8	] {};
 void() wiz_die =
 {
 // check for gib
-	if (self.health < -40)
+	if (self.health < -40 || (self.lastattacker.perks & PERK_BLOODYMESS))
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowHead ("progs/h_wizard.mdl", self.health);
@@ -357,6 +357,8 @@ void() wiz_die =
 
 void(entity attacker, float damage) Wiz_Pain =
 {
+	self.lastattacker = attacker;
+	
 	sound (self, CHAN_VOICE, "wizard/wpain.wav", 1, ATTN_NORM);
 	if (random()*70 > damage)
 		return;		// didn't flinch

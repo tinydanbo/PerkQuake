@@ -537,6 +537,7 @@ float	AS_MISSILE		= 4;
 //
 .float 		pausetime;
 .entity 	movetarget;
+.entity		lastattacker;
 
 
 //

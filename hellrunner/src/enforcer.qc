@@ -215,6 +215,8 @@ void()	enf_paind19	=[	$paind19,	enf_run1	] {};
 void(entity attacker, float damage)	enf_pain =
 {
 	local float r;
+	
+	self.lastattacker = attacker;
 
 	r = random ();
 	if (self.pain_finished > time)
@@ -289,7 +291,7 @@ void()	enf_fdie11	=[	$fdeath11,	enf_fdie11	] {};
 void() enf_die =
 {
 // check for gib
-	if (self.health < -35)
+	if (self.health < -35 || (self.lastattacker.perks & PERK_BLOODYMESS))
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowHead ("progs/h_mega.mdl", self.health);

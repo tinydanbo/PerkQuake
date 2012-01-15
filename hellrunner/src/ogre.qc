@@ -316,6 +316,8 @@ void(entity attacker, float damage)	ogre_pain =
 {
 	local float	r;
 
+	self.lastattacker = attacker;
+	
 // don't make multiple pain sounds right after each other
 	if (self.pain_finished > time)
 		return;
@@ -386,7 +388,7 @@ void()	ogre_bdie10	=[	$bdeath10,	ogre_bdie10	] {};
 void() ogre_die =
 {
 // check for gib
-	if (self.health < -80)
+	if (self.health < -80 || (self.lastattacker.perks & PERK_BLOODYMESS))
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowHead ("progs/h_ogre.mdl", self.health);

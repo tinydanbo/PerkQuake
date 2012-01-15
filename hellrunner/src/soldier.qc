@@ -146,6 +146,8 @@ void(entity attacker, float damage)	army_pain =
 {
 	local float r;
 	
+	self.lastattacker = attacker;
+	
 	if (self.pain_finished > time)
 		return;
 
@@ -223,7 +225,7 @@ void()	army_cdie11	=[	$deathc11,	army_cdie11	] {};
 void() army_die =
 {
 // check for gib
-	if (self.health < -35)
+	if ((self.health < -35) || (self.lastattacker.perks & PERK_BLOODYMESS))
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowHead ("progs/h_guard.mdl", self.health);

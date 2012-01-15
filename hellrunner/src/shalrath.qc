@@ -21,7 +21,7 @@ $frame death1 death2 death3 death4 death5 death6 death7
 $frame	walk1 walk2 walk3 walk4 walk5 walk6 walk7 walk8 walk9 walk10
 $frame	walk11 walk12
 
-void() shalrath_pain;
+void(entity attacker, float damage) shalrath_pain;
 void() ShalMissile;
 void() shal_stand     =[      $walk1,       shal_stand    ] {ai_stand();};
 
@@ -87,8 +87,11 @@ void() shal_death6      =[      $death6,        shal_death7     ] {};
 void() shal_death7      =[      $death7,        shal_death7    ] {};
 
 
-void() shalrath_pain =
+void(entity attacker, float damage) shalrath_pain =
 {
+
+	self.lastattacker = attacker;
+	
 	if (self.pain_finished > time)
 		return;
 
@@ -102,7 +105,7 @@ void() shalrath_pain =
 void() shalrath_die =
 {
 // check for gib
-	if (self.health < -90)
+	if (self.health < -90 || (self.lastattacker.perks & PERK_BLOODYMESS))
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowHead ("progs/h_shal.mdl", self.health);

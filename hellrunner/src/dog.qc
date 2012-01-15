@@ -195,8 +195,11 @@ void() dog_painb14	=[	$painb14 ,	dog_painb15	] {};
 void() dog_painb15	=[	$painb15 ,	dog_painb16	] {};
 void() dog_painb16	=[	$painb16 ,	dog_run1	] {};
 
-void() dog_pain =
+void(entity attacker, float damage) dog_pain =
 {
+
+	self.lastattacker = attacker;
+	
 	sound (self, CHAN_VOICE, "dog/dpain1.wav", 1, ATTN_NORM);
 
 	/*
@@ -231,7 +234,7 @@ void() dog_dieb9		=[	$deathb9,	dog_dieb9	] {};
 void() dog_die =
 {
 // check for gib
-	if (self.health < -35)
+	if (self.health < -35 || (self.lastattacker.perks & PERK_BLOODYMESS))
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowGib ("progs/gib3.mdl", self.health);
