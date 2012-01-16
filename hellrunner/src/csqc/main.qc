@@ -446,6 +446,8 @@ void CSQC_UpdateView (float width, float height, float menushown)
 	DrawSerialKillerStatus();
 	
 	DrawPerks();
+	
+	DrawMenu();
 }
 
 float CSQC_InputEvent (float event, float param, float param2)
@@ -456,7 +458,19 @@ float CSQC_InputEvent (float event, float param, float param2)
 	keybind = getkeybind(param);
    
     if (!event) { // key pressed down
-		
+		if (key == "b") {
+			if (menustate == MENU_NONE) {
+				menustate = MENU_MAIN;
+				return 1;
+			} else {
+				menustate = MENU_NONE;
+				return 1;
+			}
+		}
+		if (menustate > MENU_NONE) {
+			MenuHandleKey(key);
+			return 1;
+		}
 	}
 
 	return false;

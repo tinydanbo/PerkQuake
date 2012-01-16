@@ -165,3 +165,9 @@ float	PERK_STOPWATCH			= 1048576;
 float	PERK_LONGBARREL			= 2097152;
 float	PERK_BUDGETING			= 4194304;
 float	PERK_CRAZYLEGS			= 8388608;
+
+float	MENU_NONE	= 0;
+float	MENU_MAIN	= 1;
+float	MENU_PERK1	= 2;
+float	MENU_PERK2	= 3;
+float	MENU_PERK3	= 4;

@@ -3,4 +3,7 @@
 csqc/csqc_defs.qc // definitions
 csqc/csqc_constants.qc // constants
 csqc/csqc_builtins.qc // builtins
+
+csqc/menu.qc
+
 csqc/main.qc // required functions
