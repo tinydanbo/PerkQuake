@@ -123,6 +123,8 @@ void		end_sys_globals;		// flag for structure dumping
 
 .entity		owner;		// who launched a missile
 
+float		menustate;
+
 //================================================
 void		end_sys_fields;			// flag for structure dumping
 //================================================

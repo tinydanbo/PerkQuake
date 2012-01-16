@@ -108,24 +108,6 @@ void DrawBar (vector topleft, float width, float height, float full, vector bgco
 	DrawHollowBar(topleft, 100, 10, '0 0 0');
 }
 
-void DrawPerks()
-{
-	local string perk1, perk2, perk3;
-	
-	perk1 = "  Perk One";
-	perk2 = "  Perk Two";
-	perk3 = "Perk Three";
-	
-	drawstring ('575 335 0', perk1, '6 6 0', '0.8 0 0', 1.0, 0);
-	drawstring ('575 343 0', perk2, '6 6 0', '0.6 0.6 0', 1.0, 0);
-	drawstring ('575 351 0', perk3, '6 6 0', '0.2 0.2 0.8', 1.0, 0);
-}
-
-void DrawTimer()
-{
-	drawstring ('470 5 0', "Time Left : 1:24", '10 10 0', '1 1 1', 1.0, 0);
-}
-
 void DrawArmour() {
 	local float armourint;
 	local string armourstr;
@@ -386,6 +368,51 @@ void DrawSerialKillerStatus() {
 	}
 }
 
+void DrawPerks() {
+	local float perks;
+	
+	perks = getstati(STAT_PERKS);
+	
+	if (perks & PERK_DETERMINATION) {
+		drawstring('510 300 0', "   Determination", '8 8 0', '0.8 0 0', 1.0, 0);
+	}
+	if (perks & PERK_SERIALKILLER) {
+		drawstring('510 300 0', "   Serial Killer", '8 8 0', '0.8 0 0', 1.0, 0);
+	}
+	if (perks & PERK_EXPRESSDELIVERY) {
+		drawstring('510 300 0', "Express Delivery", '8 8 0', '0.8 0 0', 1.0, 0);
+	}
+	if (perks & PERK_LONGBARREL) {
+		drawstring('510 300 0', "     Long Barrel", '8 8 0', '0.8 0 0', 1.0, 0);
+	}
+	
+	if (perks & PERK_VAMPIRISM) {
+		drawstring('510 310 0', "       Vampirism", '8 8 0', '0.8 0.8 0', 1.0, 0);
+	}
+	if (perks & PERK_BATTLEMEDICINE) {
+		drawstring('510 310 0', " Battle Medicine", '8 8 0', '0.8 0.8 0', 1.0, 0);
+	}
+	if (perks & PERK_FINDERSKEEPERS) {
+		drawstring('510 310 0', " Finders Keepers", '8 8 0', '0.8 0.8 0', 1.0, 0);
+	}
+	if (perks & PERK_BUDGETING) {
+		drawstring('510 310 0', "       Budgeting", '8 8 0', '0.8 0.8 0', 1.0, 0);
+	}
+	
+	if (perks & PERK_ARTFULDODGER) {
+		drawstring('510 320 0', "   Artful Dodger", '8 8 0', '0 0.8 0.8', 1.0, 0);
+	}
+	if (perks & PERK_BLOODYMESS) {
+		drawstring('510 320 0', "     Bloody Mess", '8 8 0', '0 0.8 0.8', 1.0, 0);
+	}
+	if (perks & PERK_LIGHTFEET) {
+		drawstring('510 320 0', "      Light Feet", '8 8 0', '0 0.8 0.8', 1.0, 0);
+	}
+	if (perks & PERK_CRAZYLEGS) {
+		drawstring('510 320 0', "      Crazy Legs", '8 8 0', '0 0.8 0.8', 1.0, 0);
+	}
+}
+
 void CSQC_UpdateView (float width, float height, float menushown) 
 {
 	// make a function to update any local resolution stuff and call it here.. We'd do this for resolution independent locations to render pictures or things. 
@@ -418,13 +445,7 @@ void CSQC_UpdateView (float width, float height, float menushown)
 	
 	DrawSerialKillerStatus();
 	
-	// DrawReserveAmmo();
-	
-	// DrawPerks();
-	
-	// DrawWeaponName();
-	
-	// DrawTimer();
+	DrawPerks();
 }
 
 float CSQC_InputEvent (float event, float param, float param2)
@@ -435,7 +456,7 @@ float CSQC_InputEvent (float event, float param, float param2)
 	keybind = getkeybind(param);
    
     if (!event) { // key pressed down
-	
+		
 	}
 
 	return false;

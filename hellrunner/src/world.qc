@@ -337,6 +337,7 @@ void() worldspawn =
 	
 	// add stat
 	addstat(STAT_SERIALKILLERRANK, 2, serial_killer_rank);
+	addstat(STAT_PERKS, 2, perks);
 };
 
 void() StartFrame =
