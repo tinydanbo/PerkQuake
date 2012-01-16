@@ -1441,6 +1441,76 @@ void() GrantAllPerks =
 	sprint(self, "All perks granted.\n");
 };
 
+void(float impulse) GrantPerk =
+{
+	if (impulse < 20) {
+		if (self.perks & PERK_DETERMINATION)
+			self.perks -= PERK_DETERMINATION;
+		if (self.perks & PERK_SERIALKILLER)
+			self.perks -= PERK_SERIALKILLER;
+		if (self.perks & PERK_EXPRESSDELIVERY)
+			self.perks -= PERK_EXPRESSDELIVERY;
+		if (self.perks & PERK_LONGBARREL)
+			self.perks -= PERK_LONGBARREL;
+	} else if (impulse < 24) {
+		if (self.perks & PERK_VAMPIRISM)
+			self.perks -= PERK_VAMPIRISM;
+		if (self.perks & PERK_BATTLEMEDICINE)
+			self.perks -= PERK_BATTLEMEDICINE;
+		if (self.perks & PERK_FINDERSKEEPERS)
+			self.perks -= PERK_FINDERSKEEPERS;
+		if (self.perks & PERK_BUDGETING)
+			self.perks -= PERK_BUDGETING;
+	} else if (impulse < 28) {
+		if (self.perks & PERK_ARTFULDODGER)
+			self.perks -= PERK_ARTFULDODGER;
+		if (self.perks & PERK_BLOODYMESS)
+			self.perks -= PERK_BLOODYMESS;
+		if (self.perks & PERK_LIGHTFEET)
+			self.perks -= PERK_LIGHTFEET;
+		if (self.perks & PERK_CRAZYLEGS)
+			self.perks -= PERK_CRAZYLEGS;
+	}
+	
+	if (impulse == 16) {
+		self.perks += PERK_DETERMINATION;
+		sprint(self, "Determination granted.\n");
+	} else if (impulse == 17) {
+		self.perks += PERK_SERIALKILLER;
+		sprint(self, "Serial Killer granted.\n");
+	} else if (impulse == 18) {
+		self.perks += PERK_EXPRESSDELIVERY;
+		sprint(self, "Express Delivery granted.\n");
+	} else if (impulse == 19) {
+		self.perks += PERK_LONGBARREL;
+		sprint(self, "Long Barrel granted.\n");
+	} else if (impulse == 20) {
+		self.perks += PERK_VAMPIRISM;
+		sprint(self, "Vampirism granted.\n");
+	} else if (impulse == 21) {
+		self.perks += PERK_BATTLEMEDICINE;
+		sprint(self, "Battle Medicine granted.\n");
+	} else if (impulse == 22) {
+		self.perks += PERK_FINDERSKEEPERS;
+		sprint(self, "Finders Keepers granted.\n");
+	} else if (impulse == 23) {
+		self.perks += PERK_BUDGETING;
+		sprint(self, "Budgeting granted.\n");
+	} else if (impulse == 24) {
+		self.perks += PERK_ARTFULDODGER;
+		sprint(self, "Artful Dodger granted.\n");
+	} else if (impulse == 25) {
+		self.perks += PERK_BLOODYMESS;
+		sprint(self, "Bloody Mess granted.\n");
+	} else if (impulse == 26) {
+		self.perks += PERK_LIGHTFEET;
+		sprint(self, "Light Feet granted.\n");
+	} else if (impulse == 27) {
+		self.perks += PERK_CRAZYLEGS;
+		sprint(self, "Crazy Legs granted.\n");
+	} 
+};
+
 /*
 ============
 ImpulseCommands
@@ -1464,7 +1534,8 @@ void() ImpulseCommands =
 		W_QuickMelee ();
 	if (self.impulse == 15)
 		GrantAllPerks();
-
+	if (self.impulse > 15 && self.impulse < 28)
+		GrantPerk(self.impulse);
 	if (self.impulse == 255)
 		QuadCheat ();
 		
