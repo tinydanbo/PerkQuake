@@ -731,8 +731,6 @@ void() PlayerDoubleJump =
 	if (self.hasdoublejumped < 1) {
 		sound (self, CHAN_BODY, "player/plyrjmp8.wav", 1, ATTN_NORM);
 		self.velocity_z = 320;
-		self.velocity_x += (self.movement_y * 0.01);
-		self.velocity_y += (self.movement_x * 0.01);
 		self.hasdoublejumped += 1;
 	}
 }
