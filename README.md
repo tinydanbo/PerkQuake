@@ -1,4 +1,4 @@
-Not my first released project, but the first one I ever did for github
+Not my first released project, but the first one I put on github
 
 Not very good but u can play
 
